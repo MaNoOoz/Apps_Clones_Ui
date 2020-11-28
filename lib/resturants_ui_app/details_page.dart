@@ -134,8 +134,7 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ColorConstants.primaryColor, statusBarIconBrightness: Brightness.dark));
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,

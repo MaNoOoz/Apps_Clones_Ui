@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:emojis/emojis.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_images_slider/flutter_images_slider.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -69,6 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       key: _drawerKey,
 //      bottomNavigationBar: noonBottomNav(),

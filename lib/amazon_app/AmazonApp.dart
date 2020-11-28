@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:splashscreen/splashscreen.dart';
 
+import '../Constants.dart';
 import 'Helpers.dart';
 import 'home_screen.dart';
 
@@ -17,6 +19,8 @@ class AmazonApp extends StatefulWidget {
 class _AmazonAppState extends State<AmazonApp> {
   @override
   Widget build(BuildContext context) {
+
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SplashScreen(
@@ -42,6 +46,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
       debugShowCheckedModeBanner: false,

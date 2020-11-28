@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_clones/amazon_app/models.dart';
 import 'package:ui_clones/hangerstation_app/Main_Page.dart';
 
+import '../Constants.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -14,15 +16,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-
+    final appBarTheme = Theme.of(context).appBarTheme;
+    final theme = Theme.of(context);
+    final iconTheme = Theme.of(context).iconTheme;
     return MaterialApp(
       home: HangerApp(),
-      theme: ThemeData(
-        primaryIconTheme: Theme.of(context).primaryIconTheme.copyWith(
-              color: Colors.black,
-            ),
-        textTheme: GoogleFonts.tajawalTextTheme(textTheme),
-      ),
+           theme: ThemeData(
+    appBarTheme: theme.appBarTheme.copyWith(
+      brightness: Brightness.light,
+
+      color: ColorConstants.primaryColor,
+      iconTheme: iconTheme.copyWith(color: Colors.black45),
+    ),
+    ),
+
     );
   }
 }
@@ -50,9 +57,8 @@ class _HangerAppState extends State<HangerApp> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: Color(0xFFFFD700)
-    ));
+
+
     final width = MediaQuery.of(context).size.width;
 
     // final width = 200.0;
@@ -81,6 +87,7 @@ class _HangerAppState extends State<HangerApp> {
           height: 100,
           color: Colors.teal,
           child: AppBar(
+            automaticallyImplyLeading: false,
             backgroundColor: Color(0xFFFFD700),
             centerTitle: false,
             title: Align(

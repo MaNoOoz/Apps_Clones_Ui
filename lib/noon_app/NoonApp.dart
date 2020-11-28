@@ -1,8 +1,7 @@
-
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_images_slider/flutter_images_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -13,7 +12,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NoonApp();
-
   }
 }
 
@@ -80,12 +78,13 @@ class _NoonAppState extends State<NoonApp> {
 
   @override
   Widget build(BuildContext context) {
-    // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
+    // setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     //         statusBarColor: Colors.white.withOpacity(0.9),
     //         /* set Status bar color in Android devices. */
     //         statusBarIconBrightness: Brightness.dark,
     //         /* set Status bar icons color in Android devices.*/
     //         statusBarBrightness: Brightness.light) /* set Status bar icon color in iOS. */);
+
     return MaterialApp(
       theme: defaultTargetPlatform == TargetPlatform.iOS ? kIOSTheme : kDefaultTheme,
       home: GestureDetector(

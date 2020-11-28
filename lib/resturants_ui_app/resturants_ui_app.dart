@@ -27,10 +27,7 @@ class _resturants_ui_app extends State<RestaurantsApp>  {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-        statusBarColor: ColorConstants.primaryColor,
-        statusBarIconBrightness: Brightness.dark
-    ));
+
     return Scaffold(
       body: Stack(
         children: <Widget>[

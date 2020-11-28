@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_clones/Constants.dart';
 import 'package:ui_clones/resturants_ui_app/resturants_ui_app.dart';
 
 import 'amazon_app/AmazonApp.dart';
 import 'hangerstation_app/HnagerApp.dart';
-import 'marso_app/main.dart';
+import 'marso_app/MarsolApp.dart';
 import 'noon_app/NoonApp.dart';
 
 void main() {
@@ -16,27 +18,25 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appBarTheme = Theme.of(context).appBarTheme;
+    final theme = Theme.of(context);
+    final iconTheme = Theme.of(context).iconTheme;
+    // final googleFont = GoogleFonts.cairoTextTheme(textTheme);
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        appBarTheme: theme.appBarTheme.copyWith(
+          color: ColorConstants.primaryColor,
+          iconTheme: iconTheme.copyWith(color: Colors.black45),
+        ),
+      ),
       routes: {
         AmazonApp.id: (context) => AmazonApp(),
         NoonApp.id: (context) => NoonApp(),
         HangerApp.id: (context) => HangerApp(),
         MarsolApp.id: (context) => MarsolApp(),
         RestaurantsApp.id: (context) => RestaurantsApp(),
-        // // ChatListScreen.id: (context) => ChatListScreen(),
-        // ChatScreen.id: (context) => ChatScreen(),
-        // FavoriteScreen.id: (context) => FavoriteScreen(),
-        // HomeScreen.id: (context) => HomeScreen(),
-        // ProfileScreen.id: (context) => ProfileScreen(),
-        // SignupScreen.id: (context) => SignupScreen(),
-        // CreatePostScreen.id: (context) => CreatePostScreen(),
-        // Location_Pickup.id: (context) => Location_Pickup(),
-        // FeedScreen.id: (context) => FeedScreen(),
-        // Edit_Heba_Screen.id: (context) => Edit_Heba_Screen(),
-//        MapScreen.id: (context) => MapScreen(
-//                  context: context,
-//                ),
       },
       home: HomePage(),
     );
@@ -72,21 +72,38 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Yaman Apps"),
-        centerTitle: true,
-        leading: IconButton(
-          icon: Icon(Icons.ac_unit),
-          onPressed: () {
-            ///todo
-          },
-        ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.ac_unit),
-            onPressed: () {
-              ///todo
-            },
+        // backgroundColor: ColorConstants.primaryColor,
+        title: Text(
+          "Apps Ui",
+          style: GoogleFonts.cairo(
+            textStyle: Theme.of(context).textTheme.display1,
+            fontSize: 30,
+            fontWeight: FontWeight.w700,
+            fontStyle: FontStyle.italic,
+            color: Colors.white
           ),
+        ),
+        centerTitle: true,
+        // leading: Padding(
+        //   padding: const EdgeInsets.only(bottom: 6.0,),
+        //   child: Image.asset(
+        //     "assets/images/myIcon.png"
+        //   ),
+        // ),
+        actions: [
+          // IconButton(
+          //   icon: Icon(Icons.ac_unit),
+          //   onPressed: () {
+          //     ///todo
+          //   },
+          // ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 6.0,),
+            child: Image.asset(
+                "assets/images/myIcon.png"
+            ),
+          ),
+
         ],
       ),
       body: ListView.builder(
@@ -109,6 +126,7 @@ class ListRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
+      color: Colors.white,
       child: ListTile(
         onTap: () {
           if (AppName.isNotEmpty) {
@@ -118,15 +136,15 @@ class ListRow extends StatelessWidget {
           }
         },
         leading: Container(
-          child: CircleAvatar(
-            child: Image.asset(
-              AppImage,
-              scale: 10,
-            ),
+          width: 50,
+          child: Image.asset(
+            AppImage,
+            scale: 6,
           ),
         ),
         title: Text(
           AppName,
+
         ),
       ),
     );

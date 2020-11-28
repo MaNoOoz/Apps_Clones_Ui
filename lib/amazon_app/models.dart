@@ -128,7 +128,7 @@ final List<Resturant> resturants2 = [
     type: "سندويش , مأكولات سريعة",
     lable: "مغلق",
     desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+        '',
   ),
   Resturant(
     imageUrl: 'assets/images/hanger_app/res3.png',
@@ -359,6 +359,17 @@ final List<Cat> mCatNames = [
   Cat(name: "القسائم"),
   Cat(name: "الجمال"),
   Cat(name: "الأخبار"),
+];
+final List<Cat> mCatNames2 = [
+  Cat(name: "حلويات"),
+  Cat(name: "السوبرماركت"),
+  Cat(name: "الالكترونيات"),
+  Cat(name: "الجوالات"),
+  Cat(name: "المنزل"),
+  Cat(name: "الألعاب"),
+  Cat(name: "القسائم"),
+  Cat(name: "الجمال"),
+  Cat(name: "عصائر"),
 ];
 
 //static
