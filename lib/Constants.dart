@@ -21,6 +21,7 @@ class Constants {
   static String HangerStationLogo = 'assets/images/hanger_app/hanger.png';
   static String MarsolAppLogo = 'assets/images/marsol_app/marsol.png';
   static String RestaurantsAppLogo = 'assets/images/resturants_ui_app/icon/burger.jpg';
+
 }
 
 class ColorConstants {

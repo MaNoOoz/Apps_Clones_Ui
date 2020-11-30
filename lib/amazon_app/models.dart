@@ -1,6 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+class Data extends ChangeNotifier {
+  static final _Pro =  Product();
+  static final _Res =  Resturant();
+  static final _Cat =  Cat();
+  static final _Filter =  Filter();
+
+  List<Product> _products = [];
+  List<Resturant> _ress = [];
+  List<Cat> _cats = [];
+  List<Filter> __filters = [];
+
+  List<Product> get products => _products;
+
+  List<Resturant> get ress => _ress;
+
+  List<Cat> get cats => _cats;
+
+  List<Filter> get _filters => __filters;
+
+  AddNewProduct(Product product) {
+    final model = product;
+    _products.add(model);
+    notifyListeners();
+  }
+
+}
+
 class Product {
   String imageUrl;
   String name;
@@ -34,6 +61,20 @@ class Resturant {
       this.rating,
       this.lable,
       this.imageUrl});
+}
+
+class Cat {
+  String name;
+  String Image;
+
+  Cat({this.name, this.Image});
+}
+
+class Filter {
+  String name;
+  String Image;
+
+  Filter({this.name, this.Image});
 }
 
 final List<Resturant> resturants = [
@@ -127,8 +168,7 @@ final List<Resturant> resturants2 = [
     rating: "4.2",
     type: "سندويش , مأكولات سريعة",
     lable: "مغلق",
-    desc:
-        '',
+    desc: '',
   ),
   Resturant(
     imageUrl: 'assets/images/hanger_app/res3.png',
@@ -191,20 +231,6 @@ final List<Resturant> resturants2 = [
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
   ),
 ];
-
-class Cat {
-  String name;
-  String Image;
-
-  Cat({this.name, this.Image});
-}
-
-class Filter {
-  String name;
-  String Image;
-
-  Filter({this.name, this.Image});
-}
 
 final List<Product> products = [
   Product(

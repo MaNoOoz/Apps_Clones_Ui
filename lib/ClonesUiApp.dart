@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:ui_clones/Constants.dart';
 import 'package:ui_clones/resturants_ui_app/resturants_ui_app.dart';
 
 import 'amazon_app/AmazonApp.dart';
+import 'amazon_app/home_screen.dart';
+import 'amazon_app/models.dart';
 import 'hangerstation_app/HnagerApp.dart';
 import 'marso_app/MarsolApp.dart';
 import 'noon_app/NoonApp.dart';
@@ -23,22 +25,30 @@ class MyApp extends StatelessWidget {
     final iconTheme = Theme.of(context).iconTheme;
     // final googleFont = GoogleFonts.cairoTextTheme(textTheme);
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        appBarTheme: theme.appBarTheme.copyWith(
-          color: ColorConstants.primaryColor,
-          iconTheme: iconTheme.copyWith(color: Colors.black45),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<Data>(
+          create: (context) => Data(),
         ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          appBarTheme: theme.appBarTheme.copyWith(
+            color: ColorConstants.primaryColor,
+            iconTheme: iconTheme.copyWith(color: Colors.black45),
+          ),
+        ),
+        routes: {
+          AmazonApp.id: (context) => AmazonApp(),
+          NoonApp.id: (context) => NoonApp(),
+          HangerApp.id: (context) => HangerApp(),
+          MarsolApp.id: (context) => MarsolApp(),
+          RestaurantsApp.id: (context) => RestaurantsApp(),
+          CartScreen.id: (context) => CartScreen(),
+        },
+        home: HomePage(),
       ),
-      routes: {
-        AmazonApp.id: (context) => AmazonApp(),
-        NoonApp.id: (context) => NoonApp(),
-        HangerApp.id: (context) => HangerApp(),
-        MarsolApp.id: (context) => MarsolApp(),
-        RestaurantsApp.id: (context) => RestaurantsApp(),
-      },
-      home: HomePage(),
     );
   }
 }
@@ -76,12 +86,11 @@ class HomePage extends StatelessWidget {
         title: Text(
           "Apps Ui",
           style: GoogleFonts.cairo(
-            textStyle: Theme.of(context).textTheme.display1,
-            fontSize: 30,
-            fontWeight: FontWeight.w700,
-            fontStyle: FontStyle.italic,
-            color: Colors.white
-          ),
+              textStyle: Theme.of(context).textTheme.display1,
+              fontSize: 30,
+              fontWeight: FontWeight.w700,
+              fontStyle: FontStyle.italic,
+              color: Colors.white),
         ),
         centerTitle: true,
         // leading: Padding(
@@ -98,12 +107,11 @@ class HomePage extends StatelessWidget {
           //   },
           // ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 6.0,),
-            child: Image.asset(
-                "assets/images/myIcon.png"
+            padding: const EdgeInsets.only(
+              bottom: 6.0,
             ),
+            child: Image.asset("assets/images/myIcon.png"),
           ),
-
         ],
       ),
       body: ListView.builder(
@@ -144,7 +152,6 @@ class ListRow extends StatelessWidget {
         ),
         title: Text(
           AppName,
-
         ),
       ),
     );

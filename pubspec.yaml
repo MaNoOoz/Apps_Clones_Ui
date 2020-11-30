@@ -24,8 +24,8 @@ dependencies:
   flutter:
     sdk: flutter
 
-  #Amazon App
   google_fonts:
+  provider:
   font_awesome_flutter:
   flutter_images_slider:
   auto_size_text:
@@ -36,10 +36,14 @@ dependencies:
   carousel_slider:
   device_apps:
   google_fonts_arabic:
+  flutter_gradient_colors:
+
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
+
   cupertino_icons: ^1.0.0
   flutter_launcher_icons: ^0.8.1
+  material_design_icons_flutter:
 dev_dependencies:
   flutter_test:
     sdk: flutter
