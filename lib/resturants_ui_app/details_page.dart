@@ -158,7 +158,7 @@ class _DetailsPageState extends State<DetailsPage> {
               // "${ImagesConstants.s1}",
               "assets/images/resturants_ui_app/images/f.gif",
               // color: Colors.red,
-              height: 250,
+              height: 150,
             ),
             Expanded(
               child: Container(
@@ -214,16 +214,8 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
-          Text(
-            '',
-            style: GoogleFonts.cairo(
-              fontSize: 15,
-              fontWeight: FontWeight.w200,
-              color: Colors.grey,
-            ),
-          )
         ],
       ),
     );
@@ -235,7 +227,10 @@ class _DetailsPageState extends State<DetailsPage> {
         length: data.length,
         child: Column(
           children: <Widget>[
-            _buildTabBar(),
+            Container(
+            color: ColorConstants.primaryColor
+
+            ,child: _buildTabBar()),
             Expanded(
               child: _buildTabBarView(),
             ),
@@ -245,9 +240,10 @@ class _DetailsPageState extends State<DetailsPage> {
     );
   }
 
+
   Widget _buildTabBar() {
     return TabBar(
-      labelColor: Colors.black,
+      labelColor: Colors.white,
       isScrollable: true,
       indicatorColor: ColorConstants.primaryColor,
       unselectedLabelColor: Colors.grey,
@@ -269,19 +265,21 @@ class _DetailsPageState extends State<DetailsPage> {
           (index) {
             ///TabBarView children length = Number of categories
             ///Each category have foodList (ListView)
-            return ListView.separated(
-                padding: EdgeInsets.all(20),
-                itemBuilder: (context, foodIndex) {
-                  return FoodTile(
-                    foodItem: data[index].foodList[foodIndex],
-                  );
-                },
-                separatorBuilder: (context, foodIndex) {
-                  return SizedBox(
-                    height: 20,
-                  );
-                },
-                itemCount: data[index].foodList.length);
+            return Container(
+              child: ListView.separated(
+                  padding: EdgeInsets.all(10),
+                  itemBuilder: (context, foodIndex) {
+                    return FoodTile(
+                      foodItem: data[index].foodList[foodIndex],
+                    );
+                  },
+                  separatorBuilder: (context, foodIndex) {
+                    return SizedBox(
+                      height: 10,
+                    );
+                  },
+                  itemCount: data[index].foodList.length),
+            );
           },
         ),
       ),

@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "80039122239",
+    "firebase_url": "https://appui-s.firebaseio.com",
+    "project_id": "appui-s",
+    "storage_bucket": "appui-s.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80039122239:android:239b12551efd4beca1af8a",
+        "android_client_info": {
+          "package_name": "manoz.com.ui_clones"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80039122239-rvr1g8001h0dmc2bje8qkbs202qa4jmk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "manoz.com.ui_clones",
+            "certificate_hash": "f8f5a1fd790bf30c024f2aa73d17e780f5cd2393"
+          }
+        },
+        {
+          "client_id": "80039122239-1kkibhaj6ium5rupkrmlshu0boa5brtl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1sEr3IIwxLqVUHxL34n6jlV0V94sgW-4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80039122239-1kkibhaj6ium5rupkrmlshu0boa5brtl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

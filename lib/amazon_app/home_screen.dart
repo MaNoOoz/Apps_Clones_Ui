@@ -4,13 +4,13 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_images_slider/flutter_images_slider.dart';
-import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart';
+import 'package:ui_clones/amazon_app/models.dart';
 import 'package:ui_clones/amazon_app/widgets/am.dart';
 
 import 'models.dart';
-import 'widgets/CustomTabBar.dart';
+
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -21,69 +21,36 @@ class _HomeScreenState extends State<HomeScreen> {
   int _current;
   int _currentTab = 0;
   int _selectedIndex = 0;
-  var staticList = <Product>[];
 
-  final List<IconData> _icons = const [
-    Icons.home,
-    // Icons.ondemand_video,
-    MdiIcons.accountCircleOutline,
-    MdiIcons.cart,
-    // MdiIcons.bellOutline,
-    Icons.menu,
-  ];
   GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+  var staticList = <Product>[];
 
   // var message = 'Made with ${Emojis.redHeart} by MaNoOoz.';
 
   @override
   void initState() {
     super.initState();
-    staticList =
-        Provider
-            .of<Data>(context, listen: false)
-            .products;
+    staticList = Provider.of<Data>(context, listen: false).products;
   }
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: _icons.length,
-      child: Scaffold(
+    var mobiles = Provider.of<Data>(context).mobiles;
+    var products = Provider.of<Data>(context).products;
+    var toys = Provider.of<Data>(context).toys;
 
-        bottomNavigationBar: Container(
-          padding: const EdgeInsets.only(bottom: 12.0),
-          color: Colors.white,
-          child: CustomTabBar(
-            icons: _icons,
-            selectedIndex: _selectedIndex,
-            onTap: (index) =>
-                setState(() {
-                  _selectedIndex = index;
-                  print(index);
-                  if (index == 2) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (_) =>
-                            CartScreen(
-                              products:staticList,
-                              product: staticList[0],
-                            ),
-                      ),
-                    );
-                  }
-                }),
-          ),
-        ),
+    return DefaultTabController(
+      length: catIcons.length,
+      child: Scaffold(
         key: _drawerKey,
         backgroundColor: Colors.white,
         appBar: AmazonAppBar(),
-        body: Contentbody(),
+        body: Contentbody(mobiles,toys,products),
       ),
     );
   }
 
-  Widget Contentbody() {
+  Widget Contentbody(mobiles,toys,products) {
     return ListView(
       children: <Widget>[
         SizedBox(height: 0.0),
@@ -102,7 +69,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
-        ProductItem(0),
+        ProductItem(products),
         Image.asset(offersImages2[0]),
         Divider(
           height: 5,
@@ -136,7 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-
   Widget buildDrawer(BuildContext context) {
     return Drawer(
       child: ListView(
@@ -169,12 +135,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        ' مرحباً.  MaNoOoz',
-                        style: TextStyle(color: Colors.white, fontSize: 23),
-                      ),
-                    )),
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    ' مرحباً.  MaNoOoz',
+                    style: TextStyle(color: Colors.white, fontSize: 23),
+                  ),
+                )),
               ],
             ),
             decoration: BoxDecoration(
@@ -303,10 +269,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _Slider() {
-    var screenwidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var screenwidth = MediaQuery.of(context).size.width;
 
     return Align(
       child: Container(
@@ -340,10 +303,10 @@ class _HomeScreenState extends State<HomeScreen> {
           items: maping<Widget>(imgList, (index, i) {
             return Container(
                 child: Image.asset(
-                  i,
-                  width: screenwidth,
-                  scale: 1,
-                ));
+              i,
+              width: screenwidth,
+              scale: 1,
+            ));
           }),
         ),
       ),
@@ -383,9 +346,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget _submitButton(BuildContext context, title) {
-    var screenSize = MediaQuery
-        .of(context)
-        .size;
+    var screenSize = MediaQuery.of(context).size;
 
     return FlatButton(
         onPressed: () async {
@@ -402,9 +363,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget ActionsButtons(BuildContext context, title, int index, Function function) {
-    var screenSize = MediaQuery
-        .of(context)
-        .size;
+    var screenSize = MediaQuery.of(context).size;
     var _cartList = <Product>[];
     var item = widget.products;
 
@@ -435,9 +394,7 @@ class _CartScreenState extends State<CartScreen> {
   }
 
   Widget total(BuildContext context, title, Product product) {
-    var screenSize = MediaQuery
-        .of(context)
-        .size;
+    var screenSize = MediaQuery.of(context).size;
     var cuurency = "  ريال ";
     var total_bill = format(product.price * count).toString();
 
@@ -589,9 +546,7 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme
-        .of(context)
-        .textTheme;
+    final textTheme = Theme.of(context).textTheme;
     var product = widget.product;
     GlobalKey<ScaffoldState> _key = GlobalKey();
 
@@ -635,9 +590,11 @@ class _CartScreenState extends State<CartScreen> {
 }
 
 class ProductDetails extends StatefulWidget {
+  static const id = "ProductDetails";
+
   final Product product;
 
-  ProductDetails(this.product);
+  ProductDetails({this.product});
 
   //  final DocumentSnapshot documentSnapshot;
 //  final bool isMe;
@@ -663,9 +620,7 @@ class _ProductDetailsState extends State<ProductDetails> with TickerProviderStat
     animation = Tween<double>(begin: 0, end: 1)
         .animate(CurvedAnimation(parent: controller, curve: Curves.easeInToLinear));
     controller.forward();
-    prodList = Provider
-        .of<Data>(context, listen: false)
-        .products;
+    prodList = Provider.of<Data>(context, listen: false).products;
   }
 
   @override
@@ -678,15 +633,12 @@ class _ProductDetailsState extends State<ProductDetails> with TickerProviderStat
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AmazonAppBar(),
-
       body: mDetailsPage(context, widget.product),
     );
   }
 
   mDetailsPage(BuildContext context, Product product) {
-    Size screenSize = MediaQuery
-        .of(context)
-        .size;
+    Size screenSize = MediaQuery.of(context).size;
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
@@ -760,26 +712,27 @@ class _ProductDetailsState extends State<ProductDetails> with TickerProviderStat
     );
   }
 
-  Widget _submitButton(BuildContext context, title) {
-    var screenSize = MediaQuery
-        .of(context)
-        .size;
+  Widget addToCart(BuildContext context, title) {
+    var screenSize = MediaQuery.of(context).size;
     var item = widget.product;
 
     return FlatButton(
         onPressed: () async {
           setState(() {
             _cartList.add(item);
-            var addedHebaObject = Provider.of<Data>(context, listen: false).AddNewProduct(item);
+            // var addedHebaObject = Provider.of<Data>(context, listen: false).AddNewProduct(item);
           });
           log("prodList  : ${prodList.length}");
           log("_cartList Size : ${_cartList.length}");
+
           Navigator.push(
             context,
             MaterialPageRoute(
               builder: (_) => CartScreen(products: prodList, product: item),
             ),
           );
+
+          // Navigator.pushNamed(context, CartScreen());
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
         color: Colors.amber,
@@ -794,8 +747,8 @@ class _ProductDetailsState extends State<ProductDetails> with TickerProviderStat
   Footer(context) {
     return Column(
       children: <Widget>[
-        _submitButton(context, "BuyNow"),
-        _submitButton(context, "Add To Cart"),
+        addToCart(context, "BuyNow"),
+        addToCart(context, "Add To Cart"),
       ],
     );
   }
@@ -816,7 +769,9 @@ class ProductList extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ProductDetails(products[index]),
+            builder: (context) => ProductDetails(
+              product: products[index],
+            ),
           ),
         );
       },
@@ -858,8 +813,7 @@ class ProductList extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 Text(
-                  ' ${(products[index].price.toStringAsFixed(2))} - ${(products[index].price + 100)
-                      .toStringAsFixed(2)} ريال ',
+                  ' ${(products[index].price.toStringAsFixed(2))} - ${(products[index].price + 100).toStringAsFixed(2)} ريال ',
                   style: TextStyle(
                     color: Colors.black,
                     fontSize: 16.0,
@@ -991,9 +945,10 @@ class CatList extends StatelessWidget {
 }
 
 class ProductItem extends StatelessWidget {
-  int index;
+  List<Product> products;
 
-  ProductItem(this.index);
+
+  ProductItem(this.products);
 
   @override
   Widget build(BuildContext context) {
@@ -1016,14 +971,14 @@ class ProductItem extends StatelessWidget {
           Container(
             color: Colors.white,
             child: Image(
-              image: AssetImage(products[index].imageUrl),
+              image: AssetImage(products[0].imageUrl),
               height: 100.0,
               width: 150.0,
             ),
           ),
           SizedBox(height: 8.0),
           Text(
-            products[index].name,
+            products[0].name,
             style: TextStyle(
               fontSize: 18.0,
               fontWeight: FontWeight.bold,
@@ -1034,8 +989,7 @@ class ProductItem extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
               Text(
-                ' ${(products[index].price.toStringAsFixed(2))} - ${(products[index].price + 100)
-                    .toStringAsFixed(2)} ريال ',
+                ' ${(products[0].price.toStringAsFixed(2))} - ${(products[0].price + 100).toStringAsFixed(2)} ريال ',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18.0,
@@ -1050,96 +1004,3 @@ class ProductItem extends StatelessWidget {
     );
   }
 }
-
-//Widget noonBottomNav() {
-//  return CupertinoTabBar(
-//    iconSize: 22,
-//    //          key: key,
-//    inactiveColor: Colors.grey,
-//    //      border: Border.all(color: Colors.grey, width: 1),
-//    currentIndex: _currentTab,
-//    onTap: (int index) {
-//      if (index == 2) {
-//        //            openDialog();
-//      }
-//      setState(() {
-//        _currentTab = index;
-//      });
-//    },
-//    activeColor: Colors.amber[400].withOpacity(0.5),
-//
-//    items: [
-//      BottomNavigationBarItem(
-//        title: Text(
-//          'Home',
-//          style: TextStyle(color: Colors.black45),
-//        ),
-//        activeIcon: Icon(
-//          FontAwesomeIcons.houseUser,
-//          size: 28,
-//        ),
-//        icon: Icon(
-//          FontAwesomeIcons.houseUser,
-//          //              color: Colors.green,
-//        ),
-//      ),
-//      BottomNavigationBarItem(
-//        title: Text(
-//          'Categories',
-//          style: TextStyle(color: Colors.black45),
-//        ),
-//        activeIcon: Icon(
-//          Icons.category,
-//          size: 28,
-//        ),
-//        icon: Icon(
-//          Icons.category,
-//          //              color: Colors.amber,
-//        ),
-//      ),
-//      BottomNavigationBarItem(
-//        title: Text(
-//          'Deals',
-//          style: TextStyle(color: Colors.black45),
-//        ),
-//        activeIcon: ImageIcon(
-//          AssetImage('assets/images/amazon_app/sale.png'),
-//          size: 28,
-//        ),
-//
-//        //          icon: Icon(IconData(0xe800, fontFamily: "dealfont", fontPackage: "dealfont")),
-//        icon: ImageIcon(
-//          AssetImage('assets/images/amazon_app/sale.png'),
-//          color: Colors.blue,
-//        ),
-//      ),
-//      BottomNavigationBarItem(
-//        title: Text(
-//          'My Account',
-//          style: TextStyle(color: Colors.black45),
-//        ),
-//        activeIcon: Icon(
-//          Icons.person,
-//          size: 28,
-//        ),
-//        icon: Icon(
-//          Icons.person_outline, //              color: Colors.blue,
-//        ),
-//      ),
-//      BottomNavigationBarItem(
-//        title: Text(
-//          'Cart',
-//          style: TextStyle(color: Colors.black45),
-//        ),
-//        activeIcon: Icon(
-//          Icons.shopping_cart,
-//          size: 28,
-//        ),
-//        icon: Icon(
-//          Icons.shopping_cart,
-//          //              color: Colors.deepOrangeAccent,
-//        ),
-//      ),
-//    ],
-//  );
-//}

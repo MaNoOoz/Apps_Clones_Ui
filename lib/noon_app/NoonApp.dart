@@ -5,12 +5,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_images_slider/flutter_images_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-// void main() {
-//   runApp(MyApp());
-// }
+
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
     return NoonApp();
   }
 }
@@ -34,7 +33,7 @@ final ThemeData kDefaultTheme = new ThemeData(
 
 final String Url =
     'https://k.nooncdn.com/s/app/2019/noon-bigalog/1ce58225ba826a0ade2228e184b6d742292c530f/static/images/noon_logo_black_arabic.svg';
-final String Urlenglish = 'assets/images/noon_app/noon.png';
+final String Urlenglish = 'assets/images/noon_app/noon2.png';
 final String Url1 =
     'https://k.nooncdn.com/cms/pages/20200328/b45d91889efe7dfa6788b75b43bd26c3/ar_cat-module-03.png';
 final List<String> imgList = [
@@ -78,15 +77,11 @@ class _NoonAppState extends State<NoonApp> {
 
   @override
   Widget build(BuildContext context) {
-    // setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
-    //         statusBarColor: Colors.white.withOpacity(0.9),
-    //         /* set Status bar color in Android devices. */
-    //         statusBarIconBrightness: Brightness.dark,
-    //         /* set Status bar icons color in Android devices.*/
-    //         statusBarBrightness: Brightness.light) /* set Status bar icon color in iOS. */);
+
 
     return MaterialApp(
-      theme: defaultTargetPlatform == TargetPlatform.iOS ? kIOSTheme : kDefaultTheme,
+      debugShowCheckedModeBanner: false,
+      // theme: defaultTargetPlatform == TargetPlatform.iOS ? kIOSTheme : kDefaultTheme,
       home: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(

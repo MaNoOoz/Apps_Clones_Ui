@@ -7,21 +7,24 @@ class Constants {
   static String HangerStationAppName = 'HangerStation Ui Clone';
   static String MarsolAppName = 'Marsol Ui Clone';
   static String RestaurantsAppName = 'Restaurants Ui Clone';
+  static String AqarAppName = 'AqarApp Ui Clone';
 
   // Apps Paths
+
   static String AmazoneApp = 'AmazonApp';
   static String NoonApp = 'NoonApp';
   static String HangerStationApp = 'HangerStationApp';
   static String MarsolApp = 'MarsolApp';
   static String RestaurantsApp = 'RestaurantsApp';
+  static String AqarApp = 'AqarApp';
 
   // Images
   static String AmazoneLogo = 'assets/images/amazon_app/amazon_logo.jpg';
-  static String NoonLogo = 'assets/images/noon_app/noon.png';
+  static String NoonLogo = 'assets/images/noon_app/noon2.png';
   static String HangerStationLogo = 'assets/images/hanger_app/hanger.png';
   static String MarsolAppLogo = 'assets/images/marsol_app/marsol.png';
   static String RestaurantsAppLogo = 'assets/images/resturants_ui_app/icon/burger.jpg';
-
+  static String AqarAppLogo = 'assets/images/aqar_app/logo.png';
 }
 
 class ColorConstants {
@@ -32,6 +35,71 @@ class ColorConstants {
   static const primaryColor33 = const Color(0xffE3920C);
 }
 
+const kSpacingUnit = 10;
+
+const kDarkPrimaryColor = Color(0xFF212121);
+const kDarkSecondaryColor = Color(0xFF373737);
+const kLightPrimaryColor = Color(0xFFFFFFFF);
+const kLightSecondaryColor = Color(0xFFF3F7FB);
+const kAccentColor = Color(0xFFFFC107);
+
+final kTitleTextStyle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w600,
+);
+
+final kCaptionTextStyle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w100,
+);
+
+final kButtonTextStyle = TextStyle(
+  fontSize: 14,
+  fontWeight: FontWeight.w400,
+  color: kDarkPrimaryColor,
+);
+
+final kDarkTheme = ThemeData(
+  brightness: Brightness.dark,
+  fontFamily: 'SFProText',
+  primaryColor: kDarkPrimaryColor,
+  canvasColor: kDarkPrimaryColor,
+  backgroundColor: kDarkSecondaryColor,
+  accentColor: kAccentColor,
+  iconTheme: ThemeData.dark().iconTheme.copyWith(
+        color: kLightSecondaryColor,
+      ),
+  textTheme: ThemeData.dark().textTheme.apply(
+        fontFamily: 'SFProText',
+        bodyColor: kLightSecondaryColor,
+        displayColor: kLightSecondaryColor,
+      ),
+);
+
+final kLightTheme = ThemeData(
+  brightness: Brightness.dark,
+  fontFamily: 'SFProText',
+  primaryColor: kLightPrimaryColor,
+  canvasColor: kLightPrimaryColor,
+  backgroundColor: kAccentColor,
+  accentColor: kAccentColor,
+  iconTheme: ThemeData.light().iconTheme.copyWith(
+        color: kDarkSecondaryColor,
+      ),
+  textTheme: ThemeData.light().textTheme.apply(
+        fontFamily: 'SFProText',
+        bodyColor: kDarkSecondaryColor,
+        displayColor: kDarkSecondaryColor,
+      ),
+);
+
+
+/// key
+// keytool -genkey -v -keystore C:\Users\MaNoOox\appui_key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key
+// test appboundl
+// java -jar bundletool-all-1.4.0.jar build-apks --bundle=/h/Android Projects/Flutter Projects/Mine/ui_clones/ui_clones/build/app/outputs/bundle/release/app-release.aab --output=out_bundle_archive_set.apks
+// keytool -genkey -v -keystore  C:\Users\MaNoOox\key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key
+
 // class ImagesConstants {
 //   static var s = Image.asset('assets/images/r');
 //   static var s2 = Image.asset('assets/images/food');
@@ -39,3 +107,16 @@ class ColorConstants {
 //   static var s3 = Image.asset('assets/images/');
 //   static var s4 = Image.asset('assets/images/');
 // }
+
+const  List<String> names = [
+  'شقة للبيع',
+  'فيلا للبيع',
+  'بيت للبيع',
+  'إستراحة للبيع',
+  ' مزرعة للبيع',
+  'شقة للإيجار',
+  'فيلا للإيجار',
+  'بيت للإيجار',
+  'إستراحة للإيجار',
+  ' مزرعة للإيجار',
+];

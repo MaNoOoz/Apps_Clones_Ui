@@ -1,31 +1,246 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geoflutterfire/geoflutterfire.dart';
+import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Data extends ChangeNotifier {
-  static final _Pro =  Product();
-  static final _Res =  Resturant();
-  static final _Cat =  Cat();
-  static final _Filter =  Filter();
+  static String collectionPlaces = "places";
 
-  List<Product> _products = [];
-  List<Resturant> _ress = [];
-  List<Cat> _cats = [];
-  List<Filter> __filters = [];
+  static FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-  List<Product> get products => _products;
+  Data.initalize() {
+    _loadPlaces();
+  }
 
-  List<Resturant> get ress => _ress;
+  List<Place> _Places = [];
 
-  List<Cat> get cats => _cats;
-
-  List<Filter> get _filters => __filters;
-
-  AddNewProduct(Product product) {
-    final model = product;
-    _products.add(model);
+  _loadPlaces() async {
+    _Places = await getPlacesWithDistance();
     notifyListeners();
   }
 
+  static Future<List<Place>> getPlaces() async =>
+      _firestore.collection(collectionPlaces).get().then((result) {
+        List<Place> restaurants = [];
+
+        for (DocumentSnapshot restaurant in result.docs) {
+          restaurants.add(Place.fromSnapshot(restaurant));
+        }
+
+        return restaurants;
+      });
+
+  static Future<List<Place>> getPlacesWithDistance() async =>
+      _firestore.collection(collectionPlaces).get().then((result) {
+        List<Place> restaurants = [];
+
+        for (DocumentSnapshot place in result.docs) {
+          restaurants.add(Place.fromSnapshot(place));
+        }
+
+        return restaurants;
+      });
+
+  final List<Resturant> _resturants2 = [
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/quick.png',
+      title: 'كويك',
+      price: 300.95,
+      type: "سندويش , مأكولات سريعة",
+      rating: "4.4",
+      lable: "إعلان",
+      desc: 'Sandwitch , Fast Food',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/res2.png',
+      title: 'الفطيرة الدمشقية',
+      price: 109.99,
+      rating: "4.2",
+      type: "سندويش , مأكولات سريعة",
+      lable: "إعلان",
+      desc: '',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/res3.png',
+      title: 'ماكدونالدز',
+      price: 1199.99,
+      rating: "4.4",
+      type: "سندويش , مأكولات سريعة",
+      lable: "",
+      desc:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/res4.png',
+      title: 'قرمشها',
+      price: 88.99,
+      rating: "4.4",
+      type: "سندويش , مأكولات سريعة",
+      lable: "",
+      desc:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/qq.png',
+      title: 'الجديد عنا',
+      price: 99.95,
+      rating: "4.4",
+      lable: "مغلق",
+      desc:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/aa.png',
+      title: 'مخبوزات ومقاضي',
+      price: 99.95,
+      rating: "4.4",
+      lable: "مغلق",
+      desc:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/aaaa.png',
+      title: 'صحة وتغذية',
+      price: 99.95,
+      lable: "مغلق",
+      desc:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/aasd.png',
+      title: 'مطاعم كشخة',
+      price: 99.95,
+      desc:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Resturant(
+      imageUrl: 'assets/images/hanger_app/Layer 22 Frame.png',
+      title: 'الورد جميل',
+      price: 99.95,
+      desc:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+  ];
+
+  final List<Product> _products = [
+    Product(
+      imageUrl: 'assets/images/amazon_app/mxmaster.jpg',
+      name: 'Logitech MX Master 2S',
+      price: 300.95,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/z1.jpg',
+      name: 'IPhone 6 Plus (64) Gray',
+      price: 109.99,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/macbookpro.jpg',
+      name: 'MacBook Pro 13-inch (2019)',
+      price: 1199.99,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/keyboard.jpg',
+      name: 'Apple Magic Keyboard',
+      price: 88.99,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/jbl.jpg',
+      name: 'JBL Bluetooth Speaker',
+      price: 99.95,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+  ];
+  final List<Product> _mobiles = [
+    Product(
+      imageUrl: 'assets/images/amazon_app/a5.jpg',
+      name: 'IPhone 11 Pro',
+      price: 300.95,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/a6.jpg',
+      name: 'Samsung S10 Ultra (256)',
+      price: 109.99,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/a7.jpg',
+      name: 'IPhone XR Yellow ',
+      price: 1199.99,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/a8.jpg',
+      name: 'Samsung Note 10 Plus (128)',
+      price: 88.99,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+  ];
+  final List<Product> _toys = [
+    Product(
+      imageUrl: 'assets/images/amazon_app/gear_vr.jpg',
+      name: 'Samsung VR',
+      price: 300.95,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+  ];
+  final List<Product> _books = [
+    Product(
+      imageUrl: 'assets/images/amazon_app/thirddoor.jpg',
+      name: 'The Third Door',
+      price: 18.49,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/unfu*kyourself.jpg',
+      name: 'Unfu*k Yourself',
+      price: 18.40,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/crushingit.jpg',
+      name: 'Crushing It',
+      price: 18.98,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+    Product(
+      imageUrl: 'assets/images/amazon_app/powerofhabit.jpg',
+      name: 'The Power of Habit',
+      price: 10.20,
+      description:
+          'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
+    ),
+  ];
+
+  List<Place> get Places => _Places;
+
+  List<Product> get books => _books;
+
+  List<Product> get toys => _toys;
+
+  List<Product> get mobiles => _mobiles;
+
+  List<Product> get products => _products;
+
+  List<Resturant> get resturants2 => _resturants2;
 }
 
 class Product {
@@ -77,305 +292,36 @@ class Filter {
   Filter({this.name, this.Image});
 }
 
-final List<Resturant> resturants = [
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/Layer 2 Frame.png',
-    title: 'عروض يلو فرايدي',
-    price: 300.95,
-    rating: "4.4",
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/Layer 3 Frame.png',
-    title: 'عروض التوصيل',
-    price: 109.99,
-    rating: "4.2",
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/Layer 5 Frame.png',
-    title: 'توصيل مجاني',
-    price: 1199.99,
-    rating: "4.4",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/Layer 6 Frame.png',
-    title: 'قرمشها',
-    price: 88.99,
-    rating: "4.4",
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/qq.png',
-    title: 'الجديد عنا',
-    price: 99.95,
-    rating: "4.4",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/aa.png',
-    title: 'مخبوزات ومقاضي',
-    price: 99.95,
-    rating: "4.4",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/aaaa.png',
-    title: 'صحة وتغذية',
-    price: 99.95,
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/aasd.png',
-    title: 'مطاعم كشخة',
-    price: 99.95,
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/Layer 22 Frame.png',
-    title: 'الورد جميل',
-    price: 99.95,
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-];
-final List<Resturant> resturants2 = [
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/quick.png',
-    title: 'كويك',
-    price: 300.95,
-    type: "سندويش , مأكولات سريعة",
-    rating: "4.4",
-    lable: "مغلق",
-    desc: 'Sandwitch , Fast Food',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/res2.png',
-    title: 'الفطيرة الدمشقية',
-    price: 109.99,
-    rating: "4.2",
-    type: "سندويش , مأكولات سريعة",
-    lable: "مغلق",
-    desc: '',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/res3.png',
-    title: 'ماكدونالدز',
-    price: 1199.99,
-    rating: "4.4",
-    type: "سندويش , مأكولات سريعة",
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/res4.png',
-    title: 'قرمشها',
-    price: 88.99,
-    rating: "4.4",
-    type: "سندويش , مأكولات سريعة",
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/qq.png',
-    title: 'الجديد عنا',
-    price: 99.95,
-    rating: "4.4",
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/aa.png',
-    title: 'مخبوزات ومقاضي',
-    price: 99.95,
-    rating: "4.4",
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/aaaa.png',
-    title: 'صحة وتغذية',
-    price: 99.95,
-    lable: "مغلق",
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/aasd.png',
-    title: 'مطاعم كشخة',
-    price: 99.95,
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Resturant(
-    imageUrl: 'assets/images/hanger_app/Layer 22 Frame.png',
-    title: 'الورد جميل',
-    price: 99.95,
-    desc:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-];
+class Place {
+  static const NAME = "name";
+  static const IMAGE = "Image";
+  static const GEOPOINT = "geopoint";
+  static const TYPE = "type";
 
-final List<Product> products = [
-  Product(
-    imageUrl: 'assets/images/amazon_app/mxmaster.jpg',
-    name: 'Logitech MX Master 2S',
-    price: 300.95,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/z1.jpg',
-    name: 'IPhone 6 Plus (64) Gray',
-    price: 109.99,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/macbookpro.jpg',
-    name: 'MacBook Pro 13-inch (2019)',
-    price: 1199.99,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/keyboard.jpg',
-    name: 'Apple Magic Keyboard',
-    price: 88.99,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/jbl.jpg',
-    name: 'JBL Bluetooth Speaker',
-    price: 99.95,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-];
-final List<Product> mobiles = [
-  Product(
-    imageUrl: 'assets/images/amazon_app/a5.jpg',
-    name: 'IPhone 11 Pro',
-    price: 300.95,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/a6.jpg',
-    name: 'Samsung S10 Ultra (256)',
-    price: 109.99,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/a7.jpg',
-    name: 'IPhone XR Yellow ',
-    price: 1199.99,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/a8.jpg',
-    name: 'Samsung Note 10 Plus (128)',
-    price: 88.99,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-];
-final List<Product> toys = [
-  Product(
-    imageUrl: 'assets/images/amazon_app/gear_vr.jpg',
-    name: 'Samsung VR',
-    price: 300.95,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-];
-final List<Product> books = [
-  Product(
-    imageUrl: 'assets/images/amazon_app/thirddoor.jpg',
-    name: 'The Third Door',
-    price: 18.49,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/unfu*kyourself.jpg',
-    name: 'Unfu*k Yourself',
-    price: 18.40,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/crushingit.jpg',
-    name: 'Crushing It',
-    price: 18.98,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-  Product(
-    imageUrl: 'assets/images/amazon_app/powerofhabit.jpg',
-    name: 'The Power of Habit',
-    price: 10.20,
-    description:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. A condimentum vitae sapien pellentesque habitant morbi tristique senectus et. Auctor neque vitae tempus quam pellentesque nec. Volutpat consequat mauris nunc congue nisi. Commodo ullamcorper a lacus vestibulum sed arcu non odio euismod. Aliquam id diam maecenas ultricies mi eget.',
-  ),
-];
-final List<IconData> mIcons = [
-  Icon(Icons.shop).icon,
-  Icon(Icons.mood).icon,
-  Icon(Icons.g_translate).icon,
-  Icon(Icons.scatter_plot).icon,
-  Icon(Icons.school).icon,
-  Icon(Icons.dashboard).icon,
-  Icon(Icons.wifi).icon,
-  Icon(Icons.work).icon,
-];
+  Place(this._name, this._Image, this._geoPoint, this._type);
 
-final List<Product> cart = [
-  products[3],
-  mobiles[1],
-  products[1],
-  books[0],
-  products[4],
-];
+  String _name;
+  String _Image;
+  GeoPoint _geoPoint;
+  String _type;
 
-final List<Color> mColors = [
-  Colors.red,
-  Colors.blue,
-  Colors.yellow,
-  Colors.blueGrey,
-  Colors.greenAccent,
-  Colors.lightGreen,
-  Colors.orange,
-  Colors.brown,
-];
-//static
-final List<String> mFilterTitle = [
-  'قهوة',
-  'شاورما',
-  'عالمي',
-  'طعام محلي',
-];
+  Place.fromSnapshot(DocumentSnapshot snapshot) {
+    _name = snapshot.data()[NAME];
+    _Image = snapshot.data()[IMAGE];
+    _geoPoint = snapshot.data()[GEOPOINT];
+    _type = snapshot.data()[TYPE];
+  }
 
-final List<Cat> mCatNames = [
+  String get name => _name;
+
+  String get Image => _Image;
+
+  GeoPoint get geoPoint => _geoPoint;
+
+  String get type => _type;
+}
+
+final List<Cat> _mCatNames = [
   Cat(name: "عروض اليوم"),
   Cat(name: "السوبرماركت"),
   Cat(name: "الالكترونيات"),
@@ -396,6 +342,35 @@ final List<Cat> mCatNames2 = [
   Cat(name: "القسائم"),
   Cat(name: "الجمال"),
   Cat(name: "عصائر"),
+];
+//static
+final List<String> mFilterTitle = [
+  'قهوة',
+  'شاورما',
+  'عالمي',
+  'طعام محلي',
+];
+
+final List<IconData> mIcons = [
+  Icon(Icons.shop).icon,
+  Icon(Icons.mood).icon,
+  Icon(Icons.g_translate).icon,
+  Icon(Icons.scatter_plot).icon,
+  Icon(Icons.school).icon,
+  Icon(Icons.dashboard).icon,
+  Icon(Icons.wifi).icon,
+  Icon(Icons.work).icon,
+];
+
+final List<Color> mColors = [
+  Colors.red,
+  Colors.blue,
+  Colors.yellow,
+  Colors.blueGrey,
+  Colors.greenAccent,
+  Colors.lightGreen,
+  Colors.orange,
+  Colors.brown,
 ];
 
 //static
@@ -430,7 +405,15 @@ final List<String> offersImages2 = [
   'assets/images/amazon_app/s4.jpg',
 ];
 
-final List icons = [
+final List<IconData> navIcons = const [
+  Icons.home,
+  // Icons.ondemand_video,
+  MdiIcons.accountCircleOutline,
+  MdiIcons.cart,
+  // MdiIcons.bellOutline,
+  Icons.menu,
+];
+final List catIcons = [
   Icon(
     FontAwesomeIcons.coffee,
     color: Colors.black38,

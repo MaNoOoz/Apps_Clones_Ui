@@ -1,8 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:ui_clones/amazon_app/models.dart';
-
 
 class ResturantsPage extends StatefulWidget {
   static const String id = "ResturantsPage";
@@ -17,9 +16,9 @@ class ResturantsPage extends StatefulWidget {
 class _ResturantsPage extends State<ResturantsPage> {
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
 
     final width = MediaQuery.of(context).size.width;
+    var resturants2 = Provider.of<Data>(context).resturants2;
 
     // final width = 200.0;
     return Scaffold(
@@ -93,15 +92,15 @@ class _ResturantsPage extends State<ResturantsPage> {
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               children: [
-                CardRow(0),
-                CardRow(1),
-                CardRow(2),
-                CardRow(3),
-                CardRow(4),
-                CardRow(5),
-                CardRow(6),
-                CardRow(7),
-                CardRow(8),
+                CardRow(resturants2[0]),
+                CardRow(resturants2[1]),
+                CardRow(resturants2[2]),
+                CardRow(resturants2[3]),
+                CardRow(resturants2[4]),
+                CardRow(resturants2[5]),
+                CardRow(resturants2[6]),
+                CardRow(resturants2[7]),
+                CardRow(resturants2[8]),
               ],
             ),
           ),
@@ -113,7 +112,6 @@ class _ResturantsPage extends State<ResturantsPage> {
               child: ListView(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
-
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
@@ -167,17 +165,14 @@ class _ResturantsPage extends State<ResturantsPage> {
           ),
         ],
       ),
-
-
     );
   }
 }
 
-
 class CardRow extends StatelessWidget {
-  int index;
+  Resturant resturant;
 
-  CardRow(this.index);
+  CardRow(this.resturant);
 
   @override
   Widget build(BuildContext context) {
@@ -209,14 +204,12 @@ class CardRow extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Text(
-                        resturants[index].title,
+                        resturant.title,
                         softWrap: false,
                         maxLines: 1,
                         // overflow: TextOverflow.fade,
                         style: TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.brown[900]),
+                            fontSize: 10, fontWeight: FontWeight.bold, color: Colors.brown[900]),
                       ),
                     ),
                   ),
@@ -231,7 +224,7 @@ class CardRow extends StatelessWidget {
             child: Container(
                 height: 60,
                 child: Image.asset(
-                  resturants[index].imageUrl,
+                  resturant.imageUrl,
                   scale: 1,
                 )),
           ),
@@ -257,7 +250,7 @@ class FilterRow extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(5.0),
-            child: icons[index],
+            child: catIcons[index],
           ),
           // Spacer(flex: 1,),
           Padding(
@@ -342,16 +335,22 @@ class ResteurantRow extends StatelessWidget {
                         child: ListTile(
                           title: Text(resturant.title),
                           subtitle: Text(resturant.type ?? ""),
-                          trailing: Container(
-                              height: 20,
-                              color: Colors.yellow.withOpacity(0.4),
-                              child: Padding(
-                                padding: const EdgeInsets.all(1.0),
-                                child: Text(
-                                  "Promoted",
-                                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
-                                ),
-                              )),
+                          trailing: resturant.lable.isNotEmpty
+                              ? Container(
+                                  height: 20,
+                                  width: 50,
+                                  color: Colors.yellow.withOpacity(0.4),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(1.0),
+                                    child: Center(
+                                      child: Text(
+                                        "${resturant.lable}",
+                                        style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : SizedBox.shrink(),
                           isThreeLine: true,
                         ),
                       ),
@@ -381,9 +380,9 @@ class ResteurantRow extends StatelessWidget {
                                   TextSpan(children: [
                                     WidgetSpan(
                                         child: Icon(
-                                          FontAwesomeIcons.fastForward,
-                                          size: 12,
-                                        )),
+                                      FontAwesomeIcons.fastForward,
+                                      size: 12,
+                                    )),
                                     TextSpan(text: "   أسرع شي !"),
                                   ]),
                                 ),

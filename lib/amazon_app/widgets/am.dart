@@ -4,12 +4,9 @@ import 'package:flutter_gradient_colors/flutter_gradient_colors.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 
-class AmazonAppBar  extends StatelessWidget implements PreferredSizeWidget{
-
+class AmazonAppBar extends StatelessWidget   {
   @override
-
   Widget build(BuildContext context) {
-
     return Container(
       margin: EdgeInsets.only(top: 0.0),
       width: MediaQuery.of(context).size.width - 10,
@@ -32,8 +29,10 @@ class AmazonAppBar  extends StatelessWidget implements PreferredSizeWidget{
             child: Container(
               height: 30,
               child: Padding(
-                padding: const EdgeInsets.only(right: 18.0,bottom: 5),
-                child: Directionality(textDirection: TextDirection.rtl,child: Text("التوصيل إلى عنيزة")),
+                padding: const EdgeInsets.only(right: 18.0, bottom: 5),
+                child: Directionality(
+                    textDirection: TextDirection.rtl,
+                    child: Text("التوصيل إلى عنيزة")),
               ),
             ),
           ),
@@ -46,8 +45,7 @@ class AmazonAppBar  extends StatelessWidget implements PreferredSizeWidget{
   Size get preferredSize => const Size.fromHeight(100);
 }
 
-class Search  extends StatelessWidget {
-
+class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -79,7 +77,3 @@ class Search  extends StatelessWidget {
     );
   }
 }
-
-
-
-

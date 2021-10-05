@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ui_clones/hangerstation_app/resturantsPage.dart';
 
 class MainPage extends StatelessWidget {
   var imagePath;
-
 
   MainPage(this.imagePath);
 
@@ -107,5 +107,4 @@ class MainPage extends StatelessWidget {
       ),
     );
   }
-
 }

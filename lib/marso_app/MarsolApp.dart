@@ -3,7 +3,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:ui_clones/amazon_app/models.dart';
+import 'package:woocommerce/models/products.dart';
+import 'package:woocommerce_api/woocommerce_api.dart';
+
+import 'ProductPage.dart';
+import 'WordPressApi.dart';
 
 void MarsolAppMain() {
   runApp(MyApp());
@@ -30,6 +36,7 @@ class MarsolApp extends StatefulWidget {
     return _MarsolAppState();
   }
 }
+
 // return BottomNavigationBar(
 // unselectedItemColor: Colors.blue,
 // backgroundColor: Colors.white,
@@ -52,8 +59,14 @@ class MarsolApp extends StatefulWidget {
 // ),
 // ],
 // );
+const String BASEURL = "https://balqes.com";
+const String RESTAPI = "wp-json/wc/v3";
+const String QUERYKEYWORD = "orders";
+const String consumerKey = "ck_115be05d2cb9f5c12b0fbd19737766591bcdac9f";
+const String consumerSecret = "cs_1c20e101601d6e169b7ba170f01919108c6311ed";
 
 class _MarsolAppState extends State<MarsolApp> {
+  /// =============================================================
   // images
   final imageList = [
     "assets/images/marsol_app/Layer 1.png",
@@ -62,11 +75,52 @@ class _MarsolAppState extends State<MarsolApp> {
   ];
   int _current = 0;
 
+  List<WooProduct> products = [];
+  List<WooProduct> featuredProducts = [];
+
+  /// Using woocommerce Plugin :
+  getProducts() async {
+    print(" getProducts Called :");
+    products = await WooCommerceApi.getProductsWoo();
+    return products;
+  }
+
+  /// Using woocommerce_api Plugin :
+  // Future getProducts() async {
+  //   // Initialize the API
+  //   WooCommerceAPI wooCommerceAPI = WooCommerceAPI(
+  //       url: BASEURL, consumerKey: consumerKey, consumerSecret: consumerSecret);
+  //
+  //   // Get data using the "products" endpoint
+  //   var products = await wooCommerceAPI.getAsync("products?per_page=1");
+  //   return products;
+  //
+  // }
+
+  /// Using Http Package :
+  // getProducts() async {
+  //   // products = await WooCommerceApi.woocommerce.getProducts();
+  //   products = await WooCommerceApi.woocommerce.getProducts();
+  //   // List<User>  s = await WooCommerceApi.getUsers();
+  //   // var s = await WooCommerceApi.getGoogle();
+  //   setState(() {});
+  //   // print(" products Count : ${s.length}");
+  // }
+
+  /// ==============================================================
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
 
     final width = MediaQuery.of(context).size.width;
+    var resturants2 = Provider.of<Data>(context).resturants2;
 
     var colors = [Colors.blueGrey];
     // final width = 200.0;
@@ -75,7 +129,13 @@ class _MarsolAppState extends State<MarsolApp> {
       bottomNavigationBar: MarsolNavBar(),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.green.withOpacity(0.8),
-        onPressed: () {},
+        onPressed: () async {
+          // products = await WooCommerceApi.getProductsWoo();
+         products  =  await getProducts();
+         setState(() {
+           return products;
+         });
+        },
         child: Stack(
           children: <Widget>[
             CircleAvatar(
@@ -163,8 +223,7 @@ class _MarsolAppState extends State<MarsolApp> {
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: AlignmentDirectional.centerEnd,
-                  child: Directionality(
-                      textDirection: TextDirection.rtl, child: Text("أشهر المواقع من حولك :")),
+                  child: Directionality(textDirection: TextDirection.rtl, child: Text("أشهر المواقع من حولك :")),
                 ),
               ),
               Padding(
@@ -192,8 +251,7 @@ class _MarsolAppState extends State<MarsolApp> {
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                   alignment: AlignmentDirectional.centerEnd,
-                  child: Directionality(
-                      textDirection: TextDirection.rtl, child: Text("الخدمات الأكثر طلباً:")),
+                  child: Directionality(textDirection: TextDirection.rtl, child: Text("الخدمات الأكثر طلباً:")),
                 ),
               ),
               Padding(
@@ -211,9 +269,59 @@ class _MarsolAppState extends State<MarsolApp> {
                       /// Titles
                       Expanded(
                         child: Container(
-                          child: buildGridView3(width),
+                          child: buildGridView3(width, resturants2),
                         ),
                       ),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    // color: Colors. black.withOpacity(0.5),
+
+                    borderRadius: BorderRadius.all(Radius.circular(15)),
+                  ),
+                  height: width,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      /// Titles
+                      Expanded(
+                        child: Container(
+                          child: buildGridView4(width, products),
+                        ),
+                      ),
+                      // FutureBuilder(
+                      //   future: getProducts(),
+                      //   builder: (BuildContext context, AsyncSnapshot snapshot) {
+                      //     if (snapshot.hasData) {
+                      //       // Create a list of products
+                      //       return ListView.builder(
+                      //         scrollDirection: Axis.horizontal,
+                      //         itemCount: snapshot.data.length,
+                      //         itemBuilder: (BuildContext context, int index) {
+                      //           return ListTile(
+                      //             leading: CircleAvatar(
+                      //               child:
+                      //               Image.network(snapshot.data[index]["images"][0]["src"]),
+                      //             ),
+                      //             title: Text(snapshot.data[index]["name"]),
+                      //             subtitle:
+                      //             Text("Buy now for \$ " + snapshot.data[index]["price"]),
+                      //           );
+                      //         },
+                      //       );
+                      //     }
+                      //
+                      //     // Show a circular progress indicator while loading products
+                      //     return Center(
+                      //       child: CircularProgressIndicator(),
+                      //     );
+                      //   },
+                      // ),
                     ],
                   ),
                 ),
@@ -225,7 +333,7 @@ class _MarsolAppState extends State<MarsolApp> {
     );
   }
 
-  Widget buildGridView3(width) {
+  Widget buildGridView3(width, resturants2) {
     final orientation = MediaQuery.of(context).orientation;
     return GridView.count(
       crossAxisCount: 2,
@@ -236,16 +344,34 @@ class _MarsolAppState extends State<MarsolApp> {
       shrinkWrap: true,
 
       children: [
-        CardRow2(
-            resturants2[0], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[0]),
-        CardRow2(
-            resturants2[1], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[1]),
-        CardRow2(
-            resturants2[2], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[2]),
-        CardRow2(
-            resturants2[3], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[3]),
+        CardRow2(resturants2[0], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[0]),
+        CardRow2(resturants2[1], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[1]),
+        CardRow2(resturants2[2], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[2]),
+        CardRow2(resturants2[3], context, "assets/images/marsol_app/cake.jpg", width, mCatNames2[3]),
       ],
       // },
+    );
+  }
+
+  Widget buildGridView4(width, List<WooProduct> products) {
+    final orientation = MediaQuery.of(context).orientation;
+    return Container(
+      // color: Colors.black54,
+      child: ListView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 0.0),
+        scrollDirection: Axis.horizontal,
+        shrinkWrap: true,
+
+        itemCount: products.length,
+
+        itemBuilder: (BuildContext context, int index) {
+          return CardRow3(
+            product: products[index],
+          );
+        },
+
+        // },
+      ),
     );
   }
 
@@ -468,8 +594,7 @@ class CardRow extends StatelessWidget {
                               padding: const EdgeInsets.all(2.0),
                               child: Text(
                                 "خصم 30%",
-                                style:
-                                    TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
+                                style: TextStyle(fontWeight: FontWeight.normal, color: Colors.white),
                               ),
                             ),
                           ),
@@ -570,6 +695,97 @@ class CardRow2 extends StatelessWidget {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CardRow3 extends StatelessWidget {
+  WooProduct product;
+  int index;
+
+  CardRow3({this.product});
+
+  @override
+  Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height / 2.7;
+    double cardWidth = MediaQuery.of(context).size.width / 1.8;
+    return InkWell(
+      onTap: () => Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => ProductPage(product: product),
+        ),
+      ),
+      child: Stack(
+        children: <Widget>[
+          Container(
+            margin: const EdgeInsets.only(left: 30),
+            height: height,
+            width: cardWidth,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(24)),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black26.withOpacity(0.5),
+                  offset: Offset(0.0, 2.0),
+                  blurRadius: 10.0,
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                IconButton(
+                  icon: Icon(Icons.favorite_border),
+                  onPressed: () {},
+                  color: Colors.deepPurpleAccent,
+                ),
+                Column(
+                  children: <Widget>[
+                    Align(
+                        alignment: Alignment.topLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            product.name ?? '',
+                            style: TextStyle(color: Colors.white, fontSize: 16.0),
+                          ),
+                        )),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Container(
+                        margin: const EdgeInsets.only(bottom: 12.0),
+                        padding: const EdgeInsets.fromLTRB(8.0, 4.0, 12.0, 4.0),
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.only(topLeft: Radius.circular(10), bottomLeft: Radius.circular(10)),
+                          color: Color.fromRGBO(224, 69, 10, 1),
+                        ),
+                        child: Text(
+                          '\$${product.price ?? 0.0}',
+                          style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ),
+          ),
+          Positioned(
+            child: Hero(
+              tag: product.images[0].src,
+              child: Image.network(
+                product.images[0].src ?? '',
+                height: height / 1.7,
+                width: cardWidth / 1.4,
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

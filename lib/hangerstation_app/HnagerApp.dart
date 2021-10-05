@@ -2,11 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_clones/amazon_app/models.dart';
 import 'package:ui_clones/hangerstation_app/Main_Page.dart';
-
-import '../Constants.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,21 +12,21 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final textTheme = Theme.of(context).textTheme;
-    final appBarTheme = Theme.of(context).appBarTheme;
-    final theme = Theme.of(context);
-    final iconTheme = Theme.of(context).iconTheme;
+    // final textTheme = Theme.of(context).textTheme;
+    // final appBarTheme = Theme.of(context).appBarTheme;
+    // final theme = Theme.of(context);
+    // final iconTheme = Theme.of(context).iconTheme;
     return MaterialApp(
       home: HangerApp(),
-           theme: ThemeData(
-    appBarTheme: theme.appBarTheme.copyWith(
-      brightness: Brightness.light,
-
-      color: ColorConstants.primaryColor,
-      iconTheme: iconTheme.copyWith(color: Colors.black45),
-    ),
-    ),
-
+      // theme: ThemeData(
+      //   appBarTheme: theme.appBarTheme.copyWith(
+      //     brightness: Brightness.light,
+      //     color: Color(0xFFFFD700),
+      //     iconTheme: iconTheme.copyWith(
+      //       color: Color(0xFFFFD700),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }
@@ -58,7 +55,6 @@ class _HangerAppState extends State<HangerApp> {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-
     final width = MediaQuery.of(context).size.width;
 
     // final width = 200.0;
@@ -80,7 +76,6 @@ class _HangerAppState extends State<HangerApp> {
     return Container(
       height: 140,
       // color: Colors.red,
-
 
       child: Stack(children: [
         Container(
