@@ -1,8 +1,8 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_images_slider/flutter_images_slider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
@@ -20,7 +20,7 @@ const appBarColor = Colors.white;
 const scaffoldColor = Colors.white;
 
 final ThemeData kIOSTheme = new ThemeData(
-  primarySwatch: primaryColor,
+  primarySwatch: primaryColor as MaterialColor?,
   primaryColor: Colors.grey[100],
   primaryColorBrightness: Brightness.light,
 );
@@ -43,8 +43,8 @@ final List<String> imgList = [
   'https://k.nooncdn.com/cms/pages/20200419/d0aa149e2b1d8c5d644d15a9e5b97816/en_banner-01-ksa.jpg',
 ];
 
-List<T> map<T>(List list, Function handler) {
-  List<T> result = [];
+List<T?> map<T>(List list, Function handler) {
+  List<T?> result = [];
   for (var i = 0; i < list.length; i++) {
     result.add(handler(i, list[i]));
   }
@@ -54,9 +54,9 @@ List<T> map<T>(List list, Function handler) {
 
 class NoonApp extends StatefulWidget {
   static const String id = "NoonApp";
-  Key key;
+  Key? key;
 
-  NoonApp({Key key}) : super(key: key);
+  NoonApp({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -66,9 +66,9 @@ class NoonApp extends StatefulWidget {
 }
 
 class _NoonAppState extends State<NoonApp> {
-  int _current;
+  int? _current;
   int _currentTab = 0;
-  FocusNode focusNode;
+  FocusNode? focusNode;
 
   @override
   void initState() {
@@ -190,31 +190,29 @@ class _NoonAppState extends State<NoonApp> {
     return Column(
       children: <Widget>[
         Container(
-          width: screenwidth,
-          color: Colors.white,
-          child: ImagesSlider(
-            autoPlay: true,
-            viewportFraction: 2.0,
-            aspectRatio: 2.0,
-            distortion: false,
-            indicatorColor: Colors.grey,
-            align: IndicatorAlign.bottom,
-            indicatorWidth: 1,
-            updateCallback: (i) {
-              setState(() {
-                _current = i;
-              });
-            },
-            items: map<Widget>(imgList, (index, i) {
-              return Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: NetworkImage(i, scale: 2.5),
-                    fit: BoxFit.scaleDown,
-                  ),
-                ),
-              );
-            }),
+          child: CarouselSlider(
+            items: imgList.map((e) {
+              return Image.asset(e);
+            }).toList(),
+            options: CarouselOptions(
+              height: 150.0,
+              aspectRatio: 16 / 9,
+              viewportFraction: 1,
+              initialPage: 0,
+              enableInfiniteScroll: true,
+              reverse: false,
+              autoPlay: true,
+              autoPlayInterval: Duration(seconds: 2),
+              autoPlayAnimationDuration: Duration(milliseconds: 500),
+              autoPlayCurve: Curves.fastOutSlowIn,
+              enlargeCenterPage: true,
+              onPageChanged: (index, next) {
+                setState(() {
+                  _current = index;
+                });
+              },
+              scrollDirection: Axis.horizontal,
+            ),
           ),
         ),
         Align(
@@ -406,7 +404,7 @@ class _NoonAppState extends State<NoonApp> {
           _currentTab = index;
         });
       },
-      activeColor: Colors.amber[400].withOpacity(0.5),
+      activeColor: Colors.amber[400]!.withOpacity(0.5),
 
       items: [
         BottomNavigationBarItem(

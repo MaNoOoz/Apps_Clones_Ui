@@ -16,10 +16,10 @@ class User {
     this.body,
   });
 
-  int userId;
-  int id;
-  String title;
-  String body;
+  int? userId;
+  int? id;
+  String? title;
+  String? body;
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     userId: json["userId"],

@@ -9,15 +9,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 
 class UserLocation {
-  final double latitude;
-  final double longitude;
+  final double? latitude;
+  final double? longitude;
 
   UserLocation({this.latitude, this.longitude});
 }
 
 class LocationService {
 
-  Position currentLocation;
+  Position? currentLocation;
   Completer<GoogleMapController> googleMapContrroller = Completer();
 
 
@@ -129,8 +129,8 @@ class MapMarker extends Clusterable {
   final LatLng position;
 
   MapMarker({
-    @required this.id,
-    @required this.position,
+    required this.id,
+    required this.position,
     isCluster = false,
     clusterId,
     pointsSize,

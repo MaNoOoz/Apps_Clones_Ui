@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:ui_clones/amazon_app/models.dart';
 import 'package:ui_clones/hangerstation_app/Main_Page.dart';
@@ -138,7 +137,7 @@ class _HangerAppState extends State<HangerApp> {
           _currentTab = index;
         });
       },
-      activeColor: Colors.brown[800].withOpacity(0.9),
+      activeColor: Colors.brown[800]!.withOpacity(0.9),
 
       items: [
         BottomNavigationBarItem(

@@ -4,7 +4,6 @@
 
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../Constants.dart';
@@ -12,9 +11,9 @@ import 'details_page.dart';
 
 class RestaurantsApp extends StatefulWidget {
   static const String id = "RestaurantsApp";
-  Key key;
+  Key? key;
 
-  RestaurantsApp({Key key}) : super(key: key);
+  RestaurantsApp({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Constants {
   // Apps Names
@@ -8,6 +9,7 @@ class Constants {
   static String MarsolAppName = 'Marsol Ui Clone';
   static String RestaurantsAppName = 'Restaurants Ui Clone';
   static String AqarAppName = 'AqarApp Ui Clone';
+  static String LinkedInAppName = 'LinkedIn Ui Clone';
 
   // Apps Paths
 
@@ -17,6 +19,7 @@ class Constants {
   static String MarsolApp = 'MarsolApp';
   static String RestaurantsApp = 'RestaurantsApp';
   static String AqarApp = 'AqarApp';
+  static String LinkedInApp = 'LinkedInApp';
 
   // Images
   static String AmazoneLogo = 'assets/images/amazon_app/amazon_logo.jpg';
@@ -25,6 +28,7 @@ class Constants {
   static String MarsolAppLogo = 'assets/images/marsol_app/marsol.png';
   static String RestaurantsAppLogo = 'assets/images/resturants_ui_app/icon/burger.jpg';
   static String AqarAppLogo = 'assets/images/aqar_app/logo.png';
+  static String LinkedInAppLogo = 'assets/images/linkedin_app/index.png';
 }
 
 class ColorConstants {
@@ -92,7 +96,51 @@ final kLightTheme = ThemeData(
         displayColor: kDarkSecondaryColor,
       ),
 );
+final fontStyle = GoogleFonts.almarai(
+  textStyle: TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+    color: Colors.black87,
+    height: 1.5,
+  ),
+);
+InputDecoration textFieldDecorationCircle(
+    {String? hint, String? lable, Icon? suffixIcon,Icon? prefixIcon, TextStyle? style}) {
+  style = fontStyle.copyWith(color: Colors.grey, fontSize: 14);
+  return InputDecoration(
+    // prefixIcon: icon,
+//      prefixIcon: icon,
+//     icon: icon,
+    suffixIcon: suffixIcon,
+    prefixIcon: prefixIcon,
+    fillColor:  Color(0xFFEFF2F7),
 
+    hintTextDirection: TextDirection.rtl,
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    contentPadding: EdgeInsets.all(10),
+    hintText: hint,
+    labelText: lable,
+    hintStyle: style,
+    labelStyle: style,
+    enabled: false,
+    focusedBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.blue),
+      borderRadius: BorderRadius.all(Radius.circular(5)),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+      borderRadius: BorderRadius.all(Radius.circular(5)),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.grey),
+      borderRadius: BorderRadius.all(Radius.circular(5)),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderSide: BorderSide(color: Colors.redAccent),
+      borderRadius: BorderRadius.all(Radius.circular(5)),
+    ),
+  );
+}
 
 /// key
 // keytool -genkey -v -keystore C:\Users\MaNoOox\appui_key.jks -storetype JKS -keyalg RSA -keysize 2048 -validity 10000 -alias key

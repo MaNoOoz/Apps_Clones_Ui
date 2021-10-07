@@ -16,7 +16,6 @@ import 'package:rxdart/rxdart.dart';
 import 'package:solid_bottom_sheet/solid_bottom_sheet.dart';
 import 'package:ui_clones/amazon_app/models.dart';
 import 'package:ui_clones/aqar_app/PlaceItem.dart';
-import 'package:ui_clones/aqar_app/services.dart';
 
 import '../Constants.dart';
 
@@ -42,25 +41,25 @@ class _AqarAppState extends State<AqarApp> {
 
   Set<Marker> _markers = Set<Marker>();
   final LatLng _center = const LatLng(23.0813, -45.9175);
-  BitmapDescriptor ico;
+  BitmapDescriptor? ico;
   bool _showMapStyle = false;
-  Position currentLocation;
+  Position? currentLocation;
   var isMapView = true;
   List<Place> places = <Place>[];
   Geoflutterfire geo = Geoflutterfire();
   BehaviorSubject<double> radius = BehaviorSubject<double>.seeded(100.00);
-  Stream<dynamic> query;
-  StreamSubscription subscription;
+  Stream<dynamic>? query;
+  late StreamSubscription subscription;
 
   SolidController scroll_controller = SolidController();
 
   /// Dialoag
-  TextEditingController _textFieldControllerName;
-  TextEditingController _textFieldControllerlat;
-  TextEditingController _textFieldControllerlng;
-  String name;
-  String lat;
-  String lng;
+  TextEditingController? _textFieldControllerName;
+  TextEditingController? _textFieldControllerlat;
+  TextEditingController? _textFieldControllerlng;
+  String? name;
+  String? lat;
+  String? lng;
 
   ///
 
@@ -80,9 +79,9 @@ class _AqarAppState extends State<AqarApp> {
     _textFieldControllerName = TextEditingController();
     _textFieldControllerlat = TextEditingController();
     _textFieldControllerlng = TextEditingController();
-    this.lat = _textFieldControllerlat.text;
-    this.name = _textFieldControllerName.text;
-    this.lng = _textFieldControllerlng.text;
+    this.lat = _textFieldControllerlat!.text;
+    this.name = _textFieldControllerName!.text;
+    this.lng = _textFieldControllerlng!.text;
 
     init();
     super.initState();
@@ -162,14 +161,14 @@ class _AqarAppState extends State<AqarApp> {
                   backgroundColor: Colors.white70,
                   onPressed: () async {
                     print(
-                        "Hi ${currentLocation.latitude} _ ${currentLocation.longitude}");
+                        "Hi ${currentLocation!.latitude} _ ${currentLocation!.longitude}");
                     GoogleMapController c = await googleMapContrroller.future;
                     c.animateCamera(
                       CameraUpdate.newCameraPosition(
                         CameraPosition(
                             zoom: 5,
-                            target: LatLng(currentLocation.latitude,
-                                currentLocation.longitude)),
+                            target: LatLng(currentLocation!.latitude,
+                                currentLocation!.longitude)),
                       ),
                     );
                   },
@@ -345,10 +344,10 @@ class _AqarAppState extends State<AqarApp> {
                         icon: Icon(Icons.drive_file_rename_outline)),
                     textDirection: TextDirection.rtl,
                     inputFormatters: <TextInputFormatter>[],
-                    validator: (input) => input.trim().length < 10
+                    validator: (input) => input!.trim().length < 10
                         ? 'Please enter a valid Number'
                         : null,
-                    onSaved: (String val) {
+                    onSaved: (String? val) {
                       name = val;
                     },
                     onChanged: (val) => setState(() => name = val),
@@ -364,10 +363,10 @@ class _AqarAppState extends State<AqarApp> {
                         icon: Icon(Icons.add_location_sharp)),
                     textDirection: TextDirection.rtl,
                     inputFormatters: <TextInputFormatter>[],
-                    validator: (input) => input.trim().length < 10
+                    validator: (input) => input!.trim().length < 10
                         ? 'Please enter a valid Number'
                         : null,
-                    onSaved: (String val) {
+                    onSaved: (String? val) {
                       lng = val;
                     },
                     onChanged: (val) => setState(() => lng = val),
@@ -383,10 +382,10 @@ class _AqarAppState extends State<AqarApp> {
                         icon: Icon(Icons.add_location_sharp)),
                     textDirection: TextDirection.rtl,
                     inputFormatters: <TextInputFormatter>[],
-                    validator: (input) => input.trim().length < 10
+                    validator: (input) => input!.trim().length < 10
                         ? 'Please enter a valid Number'
                         : null,
-                    onSaved: (String val) {
+                    onSaved: (String? val) {
                       lat = val;
                     },
                     onChanged: (val) => setState(() => lat = val),
@@ -662,8 +661,8 @@ class _AqarAppState extends State<AqarApp> {
     var a = name;
     var b = "testName";
     var c = "testName";
-    var _lat = double.parse(lat);
-    var _long = double.parse(lng);
+    var _lat = double.parse(lat!);
+    var _long = double.parse(lng!);
     var geopoint = GeoPoint(_lat, _long);
     place = Place(a, b, geopoint, c);
     return place;
@@ -695,14 +694,14 @@ class _AqarAppState extends State<AqarApp> {
 
   calculateDistance(Place place) async {
     GeoFirePoint point = geo.point(
-        longitude: place.geoPoint.longitude, latitude: place.geoPoint.latitude);
+        longitude: place.geoPoint!.longitude, latitude: place.geoPoint!.latitude);
     var dis = point.distance(
-        lat: place.geoPoint.latitude, lng: place.geoPoint.longitude);
+        lat: place.geoPoint!.latitude, lng: place.geoPoint!.longitude);
     var dis2 = geolocator.Geolocator.distanceBetween(
-        currentLocation.latitude,
-        currentLocation.longitude,
-        place.geoPoint.latitude,
-        place.geoPoint.longitude);
+        currentLocation!.latitude,
+        currentLocation!.longitude,
+        place.geoPoint!.latitude,
+        place.geoPoint!.longitude);
     // var dis3 = geolocator.Geolocator.distanceBetween(26.127398,44.022813,26.1238158,44.0129319);
     var disInKm = dis2 / 1000;
     return disInKm.toStringAsFixed(2);
@@ -712,7 +711,7 @@ class _AqarAppState extends State<AqarApp> {
   }
 
   getMarkres() async {
-    var pos = currentLocation;
+    var pos = currentLocation!;
     double lat = pos.latitude;
     double lng = pos.longitude;
     GeoFirePoint cLocation = geo.point(latitude: lat, longitude: lng);
@@ -731,16 +730,16 @@ class _AqarAppState extends State<AqarApp> {
     }
     for (var place in places) {
       print(
-          "getMarkersFromList2 :${place.geoPoint.latitude} - ${place.geoPoint.longitude}");
+          "getMarkersFromList2 :${place.geoPoint!.latitude} - ${place.geoPoint!.longitude}");
       var s = await calculateDistance(place);
 
       _markers.add(
         Marker(
-          markerId: MarkerId(place.name),
+          markerId: MarkerId(place.name!),
           infoWindow: InfoWindow(title: "$s Km, ${place.name}"),
           icon: markericon,
           //            position: LatLng(doc.data['geoPoint']['Latitude'], doc.data['geoPoint']['Longitude']),
-          position: LatLng(place.geoPoint.latitude, place.geoPoint.longitude),
+          position: LatLng(place.geoPoint!.latitude, place.geoPoint!.longitude),
         ),
       );
     }
@@ -771,7 +770,7 @@ class _AqarAppState extends State<AqarApp> {
 
   int IntInRange(Random source) => source.nextInt(9);
 
-  void addNewMarker({LatLng position, String address}) async {
+  void addNewMarker({required LatLng position, String? address}) async {
     print("object");
     print("${_markers.length}");
     var rndId = Random().nextInt(300);
@@ -788,7 +787,7 @@ class _AqarAppState extends State<AqarApp> {
     GoogleMapController controller = await googleMapContrroller.future;
     CameraPosition currentPosition = CameraPosition(
         bearing: 15.0,
-        target: LatLng(currentLocation.latitude, currentLocation.longitude),
+        target: LatLng(currentLocation!.latitude, currentLocation!.longitude),
         tilt: 75.00,
         zoom: 12.0);
 
@@ -798,7 +797,7 @@ class _AqarAppState extends State<AqarApp> {
     });
   }
 
-  void addNewMarker2({LatLng position, String address}) async {
+  void addNewMarker2({required LatLng position, String? address}) async {
     print("addNewMarker2 Called");
     print("_markers : ${_markers.length}");
     var rndId = Random().nextInt(300);
@@ -812,7 +811,7 @@ class _AqarAppState extends State<AqarApp> {
     GoogleMapController controller = await googleMapContrroller.future;
     CameraPosition currentPosition = CameraPosition(
         bearing: 15.0,
-        target: LatLng(currentLocation.latitude, currentLocation.longitude),
+        target: LatLng(currentLocation!.latitude, currentLocation!.longitude),
         tilt: 75.00,
         zoom: 12.0);
 
@@ -831,7 +830,7 @@ class _AqarAppState extends State<AqarApp> {
         .resolve(config)
         .addListener(ImageStreamListener((ImageInfo image, bool sync) async {
       final ByteData bytes =
-          await image.image.toByteData(format: ImageByteFormat.png);
+          await (image.image.toByteData(format: ImageByteFormat.png) as FutureOr<ByteData>);
       final BitmapDescriptor bitmap =
           BitmapDescriptor.fromBytes(bytes.buffer.asUint8List());
       bitmapIcon.complete(bitmap);
@@ -854,7 +853,7 @@ class _AqarAppState extends State<AqarApp> {
   //   await getMarkres();
   // }
 
-  Future<geolocator.Position> getCurrentUserLocation() async {
+  Future<geolocator.Position?> getCurrentUserLocation() async {
     print("getCurrentUserLocation :  Called");
 
     /// CurrentLocation
@@ -865,7 +864,7 @@ class _AqarAppState extends State<AqarApp> {
     /// CameraPosition
     CameraPosition currentPosition = CameraPosition(
         bearing: 15.0,
-        target: LatLng(currentLocation.latitude, currentLocation.longitude),
+        target: LatLng(currentLocation!.latitude, currentLocation!.longitude),
         tilt: 75.00,
         zoom: 3.0);
     GoogleMapController controller = await googleMapContrroller.future;

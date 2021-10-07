@@ -270,7 +270,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   padding: EdgeInsets.all(10),
                   itemBuilder: (context, foodIndex) {
                     return FoodTile(
-                      foodItem: data[index].foodList[foodIndex],
+                      foodItem: data[index].foodList![foodIndex],
                     );
                   },
                   separatorBuilder: (context, foodIndex) {
@@ -278,7 +278,7 @@ class _DetailsPageState extends State<DetailsPage> {
                       height: 10,
                     );
                   },
-                  itemCount: data[index].foodList.length),
+                  itemCount: data[index].foodList!.length),
             );
           },
         ),

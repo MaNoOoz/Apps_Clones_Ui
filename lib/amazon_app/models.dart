@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:geoflutterfire/geoflutterfire.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 
 class Data extends ChangeNotifier {
@@ -244,10 +243,10 @@ class Data extends ChangeNotifier {
 }
 
 class Product {
-  String imageUrl;
-  String name;
-  double price;
-  String description;
+  String? imageUrl;
+  String? name;
+  double? price;
+  String? description;
 
   Product({
     this.imageUrl,
@@ -258,14 +257,14 @@ class Product {
 }
 
 class Resturant {
-  String title;
-  String subTitle;
-  String desc = "";
-  String type = "";
-  double price;
-  String rating;
-  String lable;
-  String imageUrl;
+  String? title;
+  String? subTitle;
+  String? desc = "";
+  String? type = "";
+  double? price;
+  String? rating;
+  String? lable;
+  String? imageUrl;
 
   Resturant(
       {this.title,
@@ -279,15 +278,15 @@ class Resturant {
 }
 
 class Cat {
-  String name;
-  String Image;
+  String? name;
+  String? Image;
 
   Cat({this.name, this.Image});
 }
 
 class Filter {
-  String name;
-  String Image;
+  String? name;
+  String? Image;
 
   Filter({this.name, this.Image});
 }
@@ -300,25 +299,25 @@ class Place {
 
   Place(this._name, this._Image, this._geoPoint, this._type);
 
-  String _name;
-  String _Image;
-  GeoPoint _geoPoint;
-  String _type;
+  String? _name;
+  String? _Image;
+  GeoPoint? _geoPoint;
+  String? _type;
 
   Place.fromSnapshot(DocumentSnapshot snapshot) {
-    _name = snapshot.data()[NAME];
-    _Image = snapshot.data()[IMAGE];
-    _geoPoint = snapshot.data()[GEOPOINT];
-    _type = snapshot.data()[TYPE];
+    // _name = snapshot.data()[NAME];
+    // _Image = snapshot.data()[IMAGE];
+    // _geoPoint = snapshot.data()[GEOPOINT];
+    // _type = snapshot.data()[TYPE];
   }
 
-  String get name => _name;
+  String? get name => _name;
 
-  String get Image => _Image;
+  String? get Image => _Image;
 
-  GeoPoint get geoPoint => _geoPoint;
+  GeoPoint? get geoPoint => _geoPoint;
 
-  String get type => _type;
+  String? get type => _type;
 }
 
 final List<Cat> _mCatNames = [
@@ -351,7 +350,7 @@ final List<String> mFilterTitle = [
   'طعام محلي',
 ];
 
-final List<IconData> mIcons = [
+final List<IconData?> mIcons = [
   Icon(Icons.shop).icon,
   Icon(Icons.mood).icon,
   Icon(Icons.g_translate).icon,

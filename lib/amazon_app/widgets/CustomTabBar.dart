@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 
 class CustomTabBar extends StatelessWidget {
   final List<IconData> icons;
-  final int selectedIndex;
+  final int? selectedIndex;
   final Function(int) onTap;
   final bool isBottomIndicator;
 
   const CustomTabBar({
-    Key key,
-    @required this.icons,
-    @required this.selectedIndex,
-    @required this.onTap,
+    Key? key,
+    required this.icons,
+    required this.selectedIndex,
+    required this.onTap,
     this.isBottomIndicator = false,
   }) : super(key: key);
 
@@ -23,7 +23,7 @@ class CustomTabBar extends StatelessWidget {
         border: isBottomIndicator
             ? Border(
                 bottom: BorderSide(
-                  color: Colors.blueGrey[300],
+                  color: Colors.blueGrey[300]!,
                   width: 1.0,
                 ),
               )

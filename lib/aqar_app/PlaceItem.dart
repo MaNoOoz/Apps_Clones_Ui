@@ -1,13 +1,12 @@
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:ui_clones/amazon_app/models.dart';
 
 class PlaceItem extends StatelessWidget {
-  final Place restaurant;
+  final Place? restaurant;
   final  distance;
 
-  const PlaceItem({Key key, this.restaurant,this.distance}) : super(key: key);
+  const PlaceItem({Key? key, this.restaurant,this.distance}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +38,7 @@ class PlaceItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  restaurant.name,
+                  restaurant!.name!,
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.normal,
@@ -50,7 +49,7 @@ class PlaceItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  restaurant.type,
+                  restaurant!.type!,
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.normal,
@@ -61,7 +60,7 @@ class PlaceItem extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
-                  restaurant.Image,
+                  restaurant!.Image!,
                   style: TextStyle(
                     fontSize: 18.0,
                     fontWeight: FontWeight.normal,

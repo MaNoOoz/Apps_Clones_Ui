@@ -2,41 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:splashscreen/splashscreen.dart';
-import 'package:ui_clones/Constants.dart';
+import 'package:ui_clones/amazon_app/screens/CartScreen.dart';
+import 'package:ui_clones/amazon_app/screens/ProductDetails.dart';
 import 'package:ui_clones/amazon_app/widgets/CustomTabBar.dart';
+import 'package:ui_clones/amazon_app/widgets/widgets.dart';
 
 import 'home_screen.dart';
 import 'models.dart';
 
 void main() => runApp(AmazonApp());
-
-class bottomNav extends StatelessWidget {
-  final bottomSelectedIndex;
-  final PageController pageController;
-  final Function bottomTapped;
-
-  bottomNav({this.bottomSelectedIndex, this.pageController, this.bottomTapped});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    return Container(
-      padding: const EdgeInsets.only(bottom: 12.0),
-      color: Colors.white,
-      child: DefaultTabController(
-        length: 4,
-        initialIndex: 0,
-        child: CustomTabBar(
-            icons: navIcons,
-            selectedIndex: bottomSelectedIndex,
-            onTap: (int index) {
-              return bottomTapped(index);
-            }),
-      ),
-    );
-  }
-}
 
 class AmazonApp extends StatefulWidget {
   static const String id = "AmazonApp";
@@ -47,13 +21,37 @@ class AmazonApp extends StatefulWidget {
 
 class _AmazonAppState extends State<AmazonApp> {
   var bottomSelectedIndex = 0;
-  PageController _pageController;
+  PageController? _pageController;
 
   PageController pageController = PageController(
     initialPage: 0,
     keepPage: true,
   );
   var staticList = <Product>[];
+
+  @override
+  void initState() {
+    super.initState();
+    staticList = Provider.of<Data>(context, listen: false).products;
+    _pageController = PageController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(100), child: AmazonAppBar()
+        ,
+      ),
+      bottomNavigationBar: bottomNav(
+          bottomTapped: bottomTapped,
+          bottomSelectedIndex: bottomSelectedIndex,
+          pageController: pageController),
+      body: buildPageView(),
+    );
+//          onClick: ()=>print("Flutter Egypt"),
+//          loaderColor: Colors.red
+  }
 
   void pageChanged(int index) {
     setState(() {
@@ -90,38 +88,8 @@ class _AmazonAppState extends State<AmazonApp> {
     );
   }
 
-  GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
+// GlobalKey<ScaffoldState> _drawerKey = GlobalKey();
 
-  // var message = 'Made with ${Emojis.redHeart} by MaNoOoz.';
+// var message = 'Made with ${Emojis.redHeart} by MaNoOoz.';
 
-  @override
-  void initState() {
-    super.initState();
-    staticList = Provider.of<Data>(context, listen: false).products;
-    _pageController = PageController();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return SplashScreen(
-      seconds: 2,
-      navigateAfterSeconds: Scaffold(
-        bottomNavigationBar: bottomNav(
-            bottomTapped: bottomTapped,
-            bottomSelectedIndex: bottomSelectedIndex,
-            pageController: pageController),
-        body: buildPageView(),
-      ),
-      title: new Text(
-        'Welcome To Fake Amazon ',
-        style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
-      ),
-      image: new Image.asset(Constants.AmazoneLogo),
-      backgroundColor: Colors.white,
-      styleTextUnderTheLoader: new TextStyle(),
-      photoSize: 100.0,
-//          onClick: ()=>print("Flutter Egypt"),
-//          loaderColor: Colors.red
-    );
-  }
 }

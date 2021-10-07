@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ui_clones/resturants_ui_app/models/food_item.dart';
 
@@ -10,9 +8,9 @@ import '../../Constants.dart';
 
 
 class FoodTile extends StatelessWidget {
-  final FoodItem foodItem;
+  final FoodItem? foodItem;
 
-  const FoodTile({Key key, this.foodItem}) : super(key: key);
+  const FoodTile({Key? key, this.foodItem}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,7 @@ class FoodTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  foodItem.name,
+                  foodItem!.name!,
                   style: GoogleFonts.cairo(
                       fontWeight: FontWeight.w600, fontSize: 18),
                 ),
@@ -43,7 +41,7 @@ class FoodTile extends StatelessWidget {
                 ),
                 Text(
                   '\SR'
-                      ' ${foodItem.price}',
+                      ' ${foodItem!.price}',
                   style: GoogleFonts.cairo(
                     fontWeight: FontWeight.w600,
                     fontSize: 18,
@@ -58,7 +56,7 @@ class FoodTile extends StatelessWidget {
           right: -10,
           top: -10,
           child: Image.asset(
-            foodItem.imagePath,
+            foodItem!.imagePath!,
             height: 120,
             width: 120,
           ),

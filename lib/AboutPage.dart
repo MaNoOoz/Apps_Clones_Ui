@@ -173,12 +173,12 @@ class AboutPage extends StatelessWidget {
 }
 
 class ProfileListItem extends StatelessWidget {
-  final IconData icon;
-  final String text;
+  final IconData? icon;
+  final String? text;
   final bool hasNavigation;
 
   const ProfileListItem({
-    Key key,
+    Key? key,
     this.icon,
     this.text,
     this.hasNavigation = true,
@@ -207,7 +207,7 @@ class ProfileListItem extends StatelessWidget {
           ),
           SizedBox(width: kSpacingUnit * 1.5),
           Text(
-            this.text,
+            this.text!,
             style: kTitleTextStyle.copyWith(
               fontWeight: FontWeight.w500,
             ),

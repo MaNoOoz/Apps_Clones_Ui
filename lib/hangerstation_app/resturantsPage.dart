@@ -42,7 +42,7 @@ class _ResturantsPage extends State<ResturantsPage> {
                         icon: Icon(
                           Icons.location_on,
                           color: Colors.brown[900],
-                        ),
+                        ), onPressed: () {  },
                       ),
                       Directionality(
                         textDirection: TextDirection.rtl,
@@ -72,7 +72,7 @@ class _ResturantsPage extends State<ResturantsPage> {
                           icon: Icon(
                             Icons.search,
                             color: Colors.black38,
-                          ),
+                          ), onPressed: () {  },
                         ),
                         Text("بحث عن مطعم"),
                       ],
@@ -204,7 +204,7 @@ class CardRow extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(2.0),
                       child: Text(
-                        resturant.title,
+                        resturant.title!,
                         softWrap: false,
                         maxLines: 1,
                         // overflow: TextOverflow.fade,
@@ -224,7 +224,7 @@ class CardRow extends StatelessWidget {
             child: Container(
                 height: 60,
                 child: Image.asset(
-                  resturant.imageUrl,
+                  resturant.imageUrl!,
                   scale: 1,
                 )),
           ),
@@ -333,9 +333,9 @@ class ResteurantRow extends StatelessWidget {
                       Directionality(
                         textDirection: TextDirection.rtl,
                         child: ListTile(
-                          title: Text(resturant.title),
+                          title: Text(resturant.title!),
                           subtitle: Text(resturant.type ?? ""),
-                          trailing: resturant.lable.isNotEmpty
+                          trailing: resturant.lable!.isNotEmpty
                               ? Container(
                                   height: 20,
                                   width: 50,

@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ui_clones/Constants.dart';
@@ -13,8 +12,10 @@ import 'AboutPage.dart';
 import 'amazon_app/AmazonApp.dart';
 import 'amazon_app/home_screen.dart';
 import 'amazon_app/models.dart';
-import 'aqar_app/services.dart';
+import 'amazon_app/screens/CartScreen.dart';
+import 'amazon_app/screens/ProductDetails.dart';
 import 'hangerstation_app/HnagerApp.dart';
+import 'linkedIn_app/main.dart';
 import 'marso_app/MarsolApp.dart';
 import 'noon_app/NoonApp.dart';
 
@@ -28,11 +29,7 @@ void main() async {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    // final appBarTheme = Theme.of(context).appBarTheme;
-    // final theme = Theme.of(context);
-    // final iconTheme = Theme.of(context).iconTheme;
-    // final googleFont = GoogleFonts.cairoTextTheme(textTheme);
-
+    final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
     var my = MultiProvider(
       providers: [
@@ -43,12 +40,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        // theme: ThemeData(
-        // appBarTheme: theme.appBarTheme.copyWith(
-        //   color: ColorConstants.primaryColor,
-        //   iconTheme: iconTheme.copyWith(color: Colors.black45),
-        // ),
-        // ),
+
         routes: {
           AmazonApp.id: (context) => AmazonApp(),
           NoonApp.id: (context) => NoonApp(),
@@ -58,13 +50,14 @@ class MyApp extends StatelessWidget {
           RestaurantsApp.id: (context) => RestaurantsApp(),
           CartScreen.id: (context) => CartScreen(),
           ProductDetails.id: (context) => ProductDetails(),
+          LinkedApp.id: (context) => LinkedApp(),
         },
         home: HomePage(),
       ),
     );
     return FutureBuilder(
         // Initialize FlutterFire
-        future: Firebase.initializeApp(),
+        future: _initialization,
         builder: (context, snapshot) {
           // Check for errors
           if (snapshot.hasError) {
@@ -87,6 +80,7 @@ var AppsName = [
   Constants.MarsolAppName,
   Constants.RestaurantsAppName,
   Constants.AqarAppName,
+  Constants.LinkedInAppName,
 ];
 var AppsImage = [
   Constants.AmazoneLogo,
@@ -95,6 +89,7 @@ var AppsImage = [
   Constants.MarsolAppLogo,
   Constants.RestaurantsAppLogo,
   Constants.AqarAppLogo,
+  Constants.LinkedInAppLogo,
 ];
 var AppsUiPath = [
   Constants.AmazoneApp,
@@ -103,10 +98,11 @@ var AppsUiPath = [
   Constants.MarsolApp,
   Constants.RestaurantsApp,
   Constants.AqarApp,
+  Constants.LinkedInApp,
 ];
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +116,7 @@ class HomePage extends StatelessWidget {
         title: Text(
           "Ui Clones Demo",
           style: GoogleFonts.cairo(
-              textStyle: Theme.of(context).textTheme.display1,
+              // textStyle: Theme.of(context).textTheme.display1,
               fontSize: 20,
               fontWeight: FontWeight.w700,
               fontStyle: FontStyle.italic,
@@ -184,16 +180,14 @@ class ListRow extends StatelessWidget {
             // log("Cart items : ${cartitems.length}");
           }
         },
-        leading: CircleAvatar(
-          child: Container(
-            // color: Colors.orange,
-            // width: 150,
-            child: Padding(
-              padding: const EdgeInsets.all(6.0),
-              child: Image.asset(
-                AppImage,
-                scale: 1,
-              ),
+        leading: Container(
+          width: 55,
+          // height: 122,
+          child: Padding(
+            padding: const EdgeInsets.all(6.0),
+            child: Image.asset(
+              AppImage,
+              scale: 1,
             ),
           ),
         ),
