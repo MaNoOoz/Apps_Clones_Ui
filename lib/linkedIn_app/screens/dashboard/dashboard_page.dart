@@ -15,53 +15,61 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DashboardController>(
       builder: (controller) {
-        return Scaffold(
-          appBar: PreferredSize(
-              preferredSize: Size.fromHeight(100), child: LinkedInAppbar()),
-          body: SafeArea(
-            child: IndexedStack(
-              index: controller.tabIndex,
-              children: [
-                HomePage(),
-                FeedPage(),
-                AlertsPage(),
-                ProfilePage(),
-                JobsPage(),
+        return SafeArea(
+          child: Scaffold(
+            appBar: PreferredSize(
+
+                preferredSize: Size.fromHeight(100), child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: LinkedInAppbar(),
+                )),
+
+            body: SafeArea(
+              child: IndexedStack(
+                index: controller.tabIndex,
+                children: [
+                  HomePage(),
+                  FeedPage(),
+                  AlertsPage(),
+                  ProfilePage(),
+                  JobsPage(),
+                ],
+              ),
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              unselectedItemColor: Colors.grey,
+              selectedItemColor: Colors.black,
+              onTap: controller.changeTabIndex,
+              currentIndex: controller.tabIndex,
+              showSelectedLabels: true,
+              showUnselectedLabels: true,
+
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: Colors.white,
+              elevation: 0,
+              items: [
+                _bottomNavigationBarItem(
+                  icon: CupertinoIcons.home,
+                  label: 'Home',
+                ),
+                _bottomNavigationBarItem(
+                  icon: CupertinoIcons.person_2_alt,
+                  label: 'My Network',
+                ),
+                _bottomNavigationBarItem(
+                  icon: CupertinoIcons.add_circled_solid,
+                  label: 'New Post',
+                ),
+                _bottomNavigationBarItem(
+                  icon: CupertinoIcons.bell,
+                  label: 'Notifications',
+                ),
+                _bottomNavigationBarItem(
+                  icon: CupertinoIcons.bag_fill,
+                  label: 'Jobs',
+                ),
               ],
             ),
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            unselectedItemColor: Colors.grey,
-            selectedItemColor: Colors.black,
-            onTap: controller.changeTabIndex,
-            currentIndex: controller.tabIndex,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            type: BottomNavigationBarType.fixed,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            items: [
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.home,
-                label: 'Home',
-              ),
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.person_2_alt,
-                label: 'My Network',
-              ),
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.add_circled_solid,
-                label: 'New Post',
-              ),
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.bell,
-                label: 'Notifications',
-              ),
-              _bottomNavigationBarItem(
-                icon: CupertinoIcons.bag_fill,
-                label: 'Jobs',
-              ),
-            ],
           ),
         );
       },

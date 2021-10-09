@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
 }
 
 const primaryColor = const Color(0xFFFFAC00);
+const backColor = const Color(0xFFF3F2EF);
 const statusBarColor = Colors.white;
 const appBarColor = Colors.white;
 const scaffoldColor = Colors.white;

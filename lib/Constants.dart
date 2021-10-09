@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'linkedIn_app/models/Post.dart';
+import 'linkedIn_app/models/User.dart';
+
 class Constants {
   // Apps Names
   static String AmazoneAppName = 'Amazon Ui Clone';
@@ -114,6 +117,7 @@ InputDecoration textFieldDecorationCircle(
     suffixIcon: suffixIcon,
     prefixIcon: prefixIcon,
     fillColor:  Color(0xFFEFF2F7),
+    border: InputBorder.none,
 
     hintTextDirection: TextDirection.rtl,
     floatingLabelBehavior: FloatingLabelBehavior.never,
@@ -123,18 +127,18 @@ InputDecoration textFieldDecorationCircle(
     hintStyle: style,
     labelStyle: style,
     enabled: false,
-    focusedBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue),
-      borderRadius: BorderRadius.all(Radius.circular(5)),
-    ),
-    disabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey),
-      borderRadius: BorderRadius.all(Radius.circular(5)),
-    ),
-    enabledBorder: OutlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey),
-      borderRadius: BorderRadius.all(Radius.circular(5)),
-    ),
+    // focusedBorder: OutlineInputBorder(
+    //   borderSide: BorderSide(color: Colors.blue),
+    //   borderRadius: BorderRadius.all(Radius.circular(5)),
+    // ),
+    // disabledBorder: OutlineInputBorder(
+    //   borderSide: BorderSide(color: Colors.grey),
+    //   borderRadius: BorderRadius.all(Radius.circular(5)),
+    // ),
+    // enabledBorder: OutlineInputBorder(
+    //   borderSide: BorderSide(color: Colors.grey),
+    //   borderRadius: BorderRadius.all(Radius.circular(5)),
+    // ),
     errorBorder: OutlineInputBorder(
       borderSide: BorderSide(color: Colors.redAccent),
       borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -167,4 +171,62 @@ const  List<String> names = [
   'بيت للإيجار',
   'إستراحة للإيجار',
   ' مزرعة للإيجار',
+];
+
+
+/// linked in app
+/// Single post
+var post = Post(
+    content: "this is a test content for post widget in linkedin ui app "
+        "this is a test content for post widget in linkedin ui app "
+        "this is a test content for post widget in linkedin ui app "
+        "this is a test content for post widget in linkedin ui app ",
+    createdAt: DateTime.now(),
+    id: 2,
+    title: "w",
+    user: User(userJob: "Mobile Developer", username: "Yaman Al Khateeb"));
+// list posts
+final  List<Post> POSTS = [
+  Post(
+      content: "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app ",
+      createdAt: DateTime.now(),
+      id: 12,      image: "assets/images/noon_app/a.jpg",
+
+      title: "w",
+      user: User(userJob: "Mobile Developer", username: "Yaman Al Khateeb")),
+  Post(
+      content: "this is a test content for post widget in linkedin ui app  "
+          "   this is a test content for post widget in linkedin ui app "
+          "   this is a test content for post widget in linkedin ui app "
+          "   this is a test content for post widget in linkedin ui app ",
+      createdAt: DateTime.now(),
+      id: 32,
+      title: "w",
+      image: "assets/images/noon_app/a5.jpg",
+      user: User(userJob: "Web Developer", username: " Mohmmed Al rashed")),
+  Post(
+      content: "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app ",
+      createdAt: DateTime.now(),
+      id: 2,
+      title: "w",
+      image: "assets/images/noon_app/a6.jpg",
+
+      user: User(userJob: "Mobile Developer", username: "Ahmed ahmed")),
+  Post(
+      content: " this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app "
+          "this is a test content for post widget in linkedin ui app ",
+      createdAt: DateTime.now(),
+      image: "assets/images/noon_app/a7.jpg",
+
+      id: 52,
+      title: "w",
+      user: User(userJob: "Mobile Developer", username: "Ali Al ")),
 ];

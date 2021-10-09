@@ -53,11 +53,17 @@ class LinkedInAppbar extends StatelessWidget {
                 flex: 2,
                 child: Container(
                   // color: Colors.blue,
+                  height: 40,
                   //
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(4)),
+                      color: Colors.black45.withOpacity(0.1)
+                  ),
                   child: Center(
                     child: TextFormField(
                       decoration: textFieldDecorationCircle(
                           hint: "",
+
                           lable: 'Search',
                           style: fontStyle.copyWith(
                             color: Color(0xFFEFF2F7),
