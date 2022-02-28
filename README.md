@@ -22,12 +22,11 @@
 
   
   <h3 align="center" style="color:green" >4. Hanger Station UI </h3>
- <p align="center">
-    <img src="https://git
-              hub.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/18.jpg" width="350"></img>
-
   
+ <p align="center">
+    <img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/18.jpg" width="350"></img>
+
    <h3 align="center" style="color:green" > Random </h3>
  <p align="center">
   
-      <img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/19.jpg" width="350"></img>
+
