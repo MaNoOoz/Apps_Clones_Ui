@@ -1,16 +1,33 @@
 # ui_clones
 
-A new Flutter application.
+<h2> This app have following App UI's -:</h2>
+<h3 align="center" style="color:green" >1. Amazon UI </h3>
+ <p align="center">
+<img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/a.png" width="350"></img>
+<img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/b.png" width="350"></img>
+<img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/c.png" width="350"></img>
+<img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/d.png" width="350"></img>
+  
+  
+  <h3 align="center" style="color:green" >2. Noon UI </h3>
+ <p align="center">
+  
+  <img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/17.jpg" width="350"></img>
 
-## Getting Started
+  
+  <h3 align="center" style="color:green" >3. Aqar UI </h3>
+ <p align="center">
+  
+  <img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/5.jpg" width="350"></img>
 
-This project is a starting point for a Flutter application.
+  
+  <h3 align="center" style="color:green" >4. Hanger Station UI </h3>
+ <p align="center">
+    <img src="https://git
+              hub.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/18.jpg" width="350"></img>
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+  
+   <h3 align="center" style="color:green" > Random </h3>
+ <p align="center">
+  
+      <img src="https://github.com/MaNoOoz/Apps_Clones_Ui/blob/master/SCREENSHOTS/19.jpg" width="350"></img>
