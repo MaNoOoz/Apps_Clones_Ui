@@ -1,5 +1,11 @@
 # ui_clones
 
+
+### Google Play Link 
+
+https://play.google.com/store/apps/details?id=manoz.com.ui_clones
+
+
 <h2> This app have following App UI's -:</h2>
 <h3 align="start" style="color:green" >1. Amazon UI </h3>
  <p align="start">
